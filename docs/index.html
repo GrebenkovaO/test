@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="description"
-        content="EDGS: Eliminating Densification for Efficient Convergence of 3DGS">
+  <meta name="description" content="EDGS: Eliminating Densification for Efficient Convergence of 3DGS">
   <meta name="keywords" content="Gaussian Splatting, Correspondences, 3DGS, Initialization">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="twitter:card" content="summary">
+
+  <!-- Twitter Meta -->
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image:src" content="./static/images/compvis_logo.png">
   <meta name="twitter:title" content="EDGS">
   <meta name="twitter:description" content="EDGS: Eliminating Densification for Efficient Convergence of 3DGS">
@@ -14,342 +15,186 @@
 
   <title>EDGS: Eliminating Densification for Efficient Convergence of 3DGS</title>
 
-  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-
     gtag('config', 'G-PYVRSFMDRL');
   </script>
 
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-        rel="stylesheet">
+  <!-- Fonts & Styles -->
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
   <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
   <link rel="stylesheet" href="./static/css/bulma.min.css">
   <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
   <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
   <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
   <link rel="icon" href="./static/images/favicon.svg">
 
+  <!-- Scripts -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="./static/js/fontawesome.all.min.js"></script>
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
 </head>
+
 <body>
+  <!-- Navbar -->
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">More Research</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://compvis.github.io/wast3d/">WaST-3D</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+    
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop has-text-centered">
+        <h1 class="title is-1">EDGS: Eliminating Densification for Efficient Convergence of 3DGS</h1>
+        <p class="is-size-5">
+          <span><a href="#">Dmytro Kotovenko</a><sup>*</sup>, </span>
+          <span><a href="#">Olga Grebenkova</a><sup>*</sup>, </span>
+          <span><a href="#">Björn Ommer</a></span>
+        </p>
+        <p class="is-size-5">CompVis @ LMU Munich • Munich Center for Machine Learning (MCML)</p>
+        <p class="is-size-5"><sup>*</sup>Equal contribution</p>
 
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-  <div class="navbar-menu">
-    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          More Research
-        </a>
-        <div class="navbar-dropdown">
-          <a class="navbar-item" href="https://compvis.github.io/wast3d/">
-            WaST-3D
+        <div class="buttons is-centered mt-4">
+          <a href="###PDF###" class="button is-dark is-rounded">
+            <span class="icon"><i class="fas fa-file-pdf"></i></span><span>Paper</span>
+          </a>
+          <a href="https://github.com/CompVis/EDGS" class="button is-dark is-rounded">
+            <span class="icon"><i class="fab fa-github"></i></span><span>Code</span>
+          </a>
+          <a href="###DEMO###" class="button is-dark is-rounded">
+            <span class="icon"><img src="https://github.com/gradio-app/gradio/blob/main/guides/assets/logo.png" alt="Gradio Logo" style="height: 1em;"></span><span>Demo</span>
           </a>
         </div>
       </div>
     </div>
+  </section>
 
-  </div>
-</nav>
-
-
-<section class="hero">
-  <div class="hero-body">
+  <!-- Teaser -->
+  <section class="hero teaser">
     <div class="container is-max-desktop">
-      <div class="columns is-centered">
-        <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">EDGS: Eliminating Densification for Efficient Convergence of 3DGS</h1>
-          <div class="is-size-5 publication-authors">
-            <span class="author-block">
-              <a href="">Dmytro Kotovenko</a><sup>*</sup>,</span>
-            <span class="author-block">
-              <a href="">Olga Grebenkova</a><sup>*</sup>,</span>
-            <span class="author-block">
-              <a href="">Björn Ommer</a>
-            </span>
-          </div>
-
-          <div class="is-size-5 publication-authors">
-            <span class="author-block">CompVis @ LMU Munich</span> 
-            <span class="author-block">Munich Center for Machine Learning (MCML)</span>
-          </div>
-          <div class="is-size-5 publication-authors">
-            <span class="author-block"><sup>*</sup>equal contribution</span>
-          </div>
-
-          <div class="column has-text-centered">
-            <div class="publication-links">
-              <!-- PDF Link. -->
-              <span class="link-block">
-                <a href="?????"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fas fa-file-pdf"></i>
-                  </span>
-                  <span>Paper</span>
-                </a>
-              </span>
-              <!-- Code Link. -->
-              <span class="link-block">
-                <a href="https://github.com/CompVis/EDGS"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-github"></i>
-                  </span>
-                  <span>Code</span>
-                  </a>
-              </span>
-              <span class="link-block">
-                <a href="????"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i <img src="https://github.com/gradio-app/gradio/blob/main/guides/assets/logo.png" alt="Gradio Logo" width="200"> ></i>
-                  </span>
-                  <span>Demo</span>
-                </a>
-              </span>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="hero-body">
-      <video id="teaser" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/teaser.mp4"
-                type="video/mp4">
-      </video>
-      <h2 class="subtitle has-text-centered"> 
-        <span class="dnerf">EDGS</span> can replace the incremental refinement process, speeding up convergence significantly.
-        free-viewpoint
-        portraits.
-      </h2>
-    </div>
-  </div>
-</section>
-
-
-<section class="hero is-light is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div id="results-carousel" class="carousel results-carousel">
-        <div class="item item-bonsai" >
-          <video poster="" id="bonsai" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/bonsai_front.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-room-front">
-          <video poster="" id="room-front" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/room_front.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-stump">
-          <video poster="" id="stump" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/stump_front.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<section class="section">
-  <div class="container is-max-desktop">
-    <!-- Abstract. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <p>
-            3D Gaussian Splatting reconstructs scenes by starting from a sparse Structure-from-Motion initialization and iteratively refining under-reconstructed regions. This process is inherently slow,
-            as it requires multiple densification steps where Gaussians are repeatedly split and adjusted, following a lengthy and redundant optimization path. 
-            Moreover, this incremental approach often leads to suboptimal renderings, particularly in complex or high-frequency regions where detail is critical.
-
-          </p>
-          <p>
-            We propose a fundamentally different approach: eliminating the densification step and replacing it with a direct initialization of 3D Gaussians using triangulated pixels from dense image correspondences.
-            This initialization provides each Gaussian with well-informed colors, scales, and positions from the outset, dramatically shortening the optimization path and removing the need for densification. 
-            Unlike traditional methods that rely on sparse keypoints, our dense initialization ensures uniform detail across the scene, even in high-frequency regions where 3DGS and other methods typically struggle. 
-            Additionally, all splats are optimized in parallel from the start, bypassing the need to wait for densification to add new Gaussians.
-
-          </p>
-          <p>
-         <span class="dnerf">EDGS</span> not only outperforms speed-optimized models in training efficiency but also achieves higher rendering quality than state-of-the-art approaches, all while using only half the splats of standard 3DGS. 
-            It is fully compatible with other 3DGS acceleration techniques, making it a versatile and efficient solution that can be integrated with existing approaches. 
-          </p>
-        </div>
-      </div>
-    </div>
-    <!--/ Abstract. -->
-
-    <!--/ Paper video. -->
-  </div>
-</section>
-
-
-<section class="hero is-small is-light">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title">EDGS starts with better distribution.</h2>
-
-      <iframe  src="static/images/full_path.pdf" width="100%" height="550">
-          </iframe>
-      <iframe  src="static/images/start_end.pdf" width="100%" height="550">
-          </iframe>
-        
+      <div class="hero-body has-text-centered">
+        <video id="teaser" autoplay muted loop playsinline>
+          <source src="./static/videos/teaser.mp4" type="video/mp4">
+        </video>
+        <h2 class="subtitle mt-3">
+          <strong>EDGS</strong> replaces the incremental refinement process to speed up convergence — enabling high-quality and fast 3D reconstuction.
+        </h2>
       </div>
     </div>
   </section>
 
-<!-- Video carousel -->
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title is-3">Our method works on different settings and different datasets </h2>
-      <div id="results-carousel" class="carousel results-carousel">
-        <div class="item item-video1">
-          <video poster="" id="video1" autoplay controls muted loop height="100%">
-            <!-- Your video file here -->
-            <source src="static/videos/bonsai_full.mp4"
-            type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-video2">
-          <video poster="" id="video2" autoplay controls muted loop height="100%">
-            <!-- Your video file here -->
-            <source src="static/videos/lego_full.mp4"
-            type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-video3">
-          <video poster="" id="video3" autoplay controls muted loop height="100%">\
-            <!-- Your video file here -->
-            <source src="static/videos/truck_full.mp4"
-            type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-video4">
-          <video poster="" id="video4" autoplay controls muted loop height="100%">
-            <!-- Your video file here -->
-            <source src="static/videos/tram.mp4"
-            type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-video5">
-          <video poster="" id="video5" autoplay controls muted loop height="100%">
-            <!-- Your video file here -->
-            <source src="static/videos/plant_big.mp4"
-            type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-video6">
-          <video poster="" id="video2" autoplay controls muted loop height="100%">
-            <!-- Your video file here -->
-            <source src="static/videos/table.mp4"
-            type="video/mp4">
-          </video>
+  <!-- Abstract -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              3D Gaussian Splatting (3DGS) reconstructs scenes starting from a sparse SfM initialization and iteratively refines under-reconstructed regions. This is slow due to repeated densification — splitting Gaussians and optimizing them through a lengthy process.
+            </p>
+            <p>
+              We propose a fundamentally different approach: initialize 3D Gaussians directly using triangulated pixels from dense image correspondences. This eliminates densification, reduces optimization time, and improves consistency across high-frequency regions.
+            </p>
+            <p>
+              <strong>EDGS</strong> optimizes all splats in parallel from the beginning, significantly accelerating convergence and improving rendering quality — all while using half as many splats as standard 3DGS. It's compatible with existing 3DGS acceleration methods.
+            </p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Video carousel -->
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title is-3">We can work not only of fron facing cameras but also on all frames, providing fast convergence and omroved results.</h2>
-      <div id="results-carousel" class="carousel results-carousel">
-        <div class="item item-video1">
-          <video poster="" id="video1" autoplay controls muted loop height="100%">
-            <!-- Your video file here -->
-            <source src="static/videos/carousel1.mp4"
-            type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-video2">
-          <video poster="" id="video2" autoplay controls muted loop height="100%">
-            <!-- Your video file here -->
-            <source src="static/videos/carousel2.mp4"
-            type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-video3">
-          <video poster="" id="video3" autoplay controls muted loop height="100%">\
-            <!-- Your video file here -->
-            <source src="static/videos/carousel3.mp4"
-            type="video/mp4">
-          </video>
+  <!-- Visualizations -->
+  <section class="hero is-light is-small">
+    <div class="hero-body">
+      <div class="container">
+        <h2 class="title">EDGS initializes with better distribution.</h2>
+        <iframe src="static/images/full_path.pdf" width="100%" height="550"></iframe>
+        <iframe src="static/images/start_end.pdf" width="100%" height="550"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dataset Results Carousel -->
+  <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container">
+        <h2 class="title is-3">Robust across various settings and datasets</h2>
+        <div id="results-carousel" class="carousel results-carousel">
+          <!-- Repeatable video items -->
+          <div class="item"><video autoplay muted loop controls><source src="static/videos/bonsai_full.mp4" type="video/mp4"></video></div>
+          <div class="item"><video autoplay muted loop controls><source src="static/videos/lego_full.mp4" type="video/mp4"></video></div>
+          <div class="item"><video autoplay muted loop controls><source src="static/videos/truck_full.mp4" type="video/mp4"></video></div>
+          <div class="item"><video autoplay muted loop controls><source src="static/videos/tram.mp4" type="video/mp4"></video></div>
+          <div class="item"><video autoplay muted loop controls><source src="static/videos/plant_big.mp4" type="video/mp4"></video></div>
+          <div class="item"><video autoplay muted loop controls><source src="static/videos/table.mp4" type="video/mp4"></video></div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
+  <!-- All-frame Capability -->
+  <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container">
+        <h2 class="title is-3">Works across all frames — not just front-facing</h2>
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="item"><video autoplay muted loop controls><source src="static/videos/carousel1.mp4" type="video/mp4"></video></div>
+          <div class="item"><video autoplay muted loop controls><source src="static/videos/carousel2.mp4" type="video/mp4"></video></div>
+          <div class="item"><video autoplay muted loop controls><source src="static/videos/carousel3.mp4" type="video/mp4"></video></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section class="section" id="BibTeX">
-  <div class="container is-max-desktop content">
-    <h2 class="title">BibTeX</h2>
-    <pre><code>@article{park2021nerfies,
-  author    = {
-    Dmytro Kotovenko,
-    Olga Grebenkova,
-    Björn Ommer
-  },
+  <!-- BibTeX -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@article{kotovenko2025edgs,
+  author    = {Dmytro Kotovenko and Olga Grebenkova and Björn Ommer},
   title     = {EDGS: Eliminating Densification for Efficient Convergence of 3DGS},
-  journal   = {?},
-  year      = {2025},
+  journal   = {To appear},
+  year      = {2025}
 }</code></pre>
-  </div>
-</section>
+    </div>
+  </section>
 
-
-<footer class="footer">
-  <div class="container">
-    <div class="columns is-centered">
-      <div class="column is-8">
-        <div class="content">
-
-          <p>
-            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
-            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
-            Commons Attribution-ShareAlike 4.0 International License</a>.
-          </p>
-
-        </div>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered is-size-6">
+        <p>
+          This page uses the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a>, adapted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.<br>
+          Licensed under a <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0</a> license.
+        </p>
       </div>
     </div>
-  </div>
-</footer>
-
+  </footer>
 </body>
 </html>
