@@ -115,13 +115,19 @@
           <h2 class="title is-3">Abstract</h2>
           <div class="content has-text-justified">
             <p>
-              3D Gaussian Splatting (3DGS) reconstructs scenes starting from a sparse SfM initialization and iteratively refines under-reconstructed regions. This is slow due to repeated densification — splitting Gaussians and optimizing them through a lengthy process.
+              3D Gaussian Splatting reconstructs scenes by starting from a sparse Structure-from-Motion initialization and iteratively refining under-reconstructed regions. This process is inherently slow,
+            as it requires multiple densification steps where Gaussians are repeatedly split and adjusted, following a lengthy and redundant optimization path. 
+            Moreover, this incremental approach often leads to suboptimal renderings, particularly in complex or high-frequency regions where detail is critical.
             </p>
             <p>
-              We propose a fundamentally different approach: initialize 3D Gaussians directly using triangulated pixels from dense image correspondences. This eliminates densification, reduces optimization time, and improves consistency across high-frequency regions.
+              We propose a fundamentally different approach: eliminating the densification step and replacing it with a direct initialization of 3D Gaussians using triangulated pixels from dense image correspondences.
+              This initialization provides each Gaussian with well-informed colors, scales, and positions from the outset, dramatically shortening the optimization path and removing the need for densification. 
+              Unlike traditional methods that rely on sparse keypoints, our dense initialization ensures uniform detail across the scene, even in high-frequency regions where 3DGS and other methods typically struggle. 
+              Additionally, all splats are optimized in parallel from the start, bypassing the need to wait for densification to add new Gaussians.
             </p>
             <p>
-              <strong>EDGS</strong> optimizes all splats in parallel from the beginning, significantly accelerating convergence and improving rendering quality — all while using half as many splats as standard 3DGS. It's compatible with existing 3DGS acceleration methods.
+              <strong>EDGS</strong> not only outperforms speed-optimized models in training efficiency but also achieves higher rendering quality than state-of-the-art approaches, all while using only half the splats of standard 3DGS. 
+            It is fully compatible with other 3DGS acceleration techniques, making it a versatile and efficient solution that can be integrated with existing approaches. 
             </p>
           </div>
         </div>
