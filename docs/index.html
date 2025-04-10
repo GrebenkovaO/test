@@ -112,38 +112,62 @@
 
 
 
-<!-- Teaser Section (Fixed) -->
-<section class="hero teaser">
-  <div class="container is-max-desktop">
-    <!-- Video Comparison Slider -->
-    <div class="twentytwenty-container twentytwenty-container-top" style="width: 100%; margin: 0 auto;">
-      <video id="video1" autoplay muted loop playsinline>
-        <source src="./static/videos/teaser.mp4" type="video/mp4">
-      </video>
-      <video id="video2" autoplay muted loop playsinline>
-        <source src="./static/videos/bonsai_full.mp4" type="video/mp4">
-      </video>
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <!-- Video Comparison Slider -->
+      <div class="twentytwenty-container twentytwenty-container-top" style="width: 100%; margin: 0 auto;">
+        <div>
+          <video id="video1" autoplay muted loop playsinline>
+            <source src="./static/videos/bonsai_front.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div>
+          <video id="video2" autoplay muted loop playsinline>
+            <source src="./static/videos/bonsai_full.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+  
+      <h2 class="subtitle mt-3 has-text-centered">
+        <strong>EDGS</strong> replaces the incremental refinement process to speed up convergence — enabling high-quality and fast 3D reconstruction.
+      </h2>
     </div>
-
-    <h2 class="subtitle mt-3 has-text-centered">
-      <strong>EDGS</strong> replaces the incremental refinement process to speed up convergence — enabling high-quality and fast 3D reconstruction.
-    </h2>
-  </div>
-</section>
-
-<script>
-  $(".twentytwenty-container-top").twentytwenty({
-    before_label: '3DGS',
-    after_label: 'Our EDGS',
-    default_offset_pct: 0.5,
-    no_overlay: true // Disable default overlay for videos
-  });
-  // Ensure videos play properly in slider
-  //document.querySelectorAll('.twentytwenty-container video').forEach(video => { video.play(); });
-</script>
+  </section>
+  
+  <!-- Make sure jQuery, jQuery event.move, jQuery.twentytwenty.js and twentytwenty.css are included -->
+  <link rel="stylesheet" href="path_to/twentytwenty.css">
+  <script src="path_to/jquery.js"></script>
+  <script src="path_to/jquery.event.move.js"></script>
+  <script src="path_to/jquery.twentytwenty.js"></script>
+  
+  <script>
+    window.addEventListener('load', function () {
+      // Wait until both videos have metadata loaded
+      const video1 = document.getElementById('video1');
+      const video2 = document.getElementById('video2');
+  
+      const checkReady = () => {
+        if (video1.readyState >= 2 && video2.readyState >= 2) {
+          $(".twentytwenty-container-top").twentytwenty({
+            before_label: '3DGS',
+            after_label: 'Our EDGS',
+            default_offset_pct: 0.5,
+            no_overlay: true
+          });
+  
+          video1.play();
+          video2.play();
+        } else {
+          setTimeout(checkReady, 100);
+        }
+      };
+  
+      checkReady();
+    });
+  </script>
 
   <!-- Abstract -->
-  <section class="section">
+  <section class="section hero is-light">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
@@ -196,52 +220,47 @@
     </div>
   </div>
 
-  <!-- Dataset Results Carousel -->
-  <section class="hero is-small">
-    <div class="hero-body">
-      <div class="container">
-        <h2 class="title is-3">Robust across various settings and datasets</h2>
-        <div id="results-carousel" class="carousel results-carousel">
-          <!-- Repeatable video items -->
-          <h3 class="title is-3">NeRF Synthetic</h3>
-          <div class="item"><video autoplay muted loop controls><source src="static/videos/lego_full.mp4" type="video/mp4"></video></div>
-          <div class="item"><video autoplay muted loop controls><source src="static/videos/lego_full.mp4" type="video/mp4"></video></div>
-          <div class="item"><video autoplay muted loop controls><source src="static/videos/lego_full.mp4" type="video/mp4"></video></div>
-          <div class="item"><video autoplay muted loop controls><source src="static/videos/lego_full.mp4" type="video/mp4"></video></div>
-          <div class="item"><video autoplay muted loop controls><source src="static/videos/lego_full.mp4" type="video/mp4"></video></div>
-          <div class="item"><video autoplay muted loop controls><source src="static/videos/lego_full.mp4" type="video/mp4"></video></div>
-        </div>
-        <div id="results-carousel" class="carousel results-carousel">
-          <!-- Repeatable video items -->
-          <h3 class="title is-3">Mip-NeRF front facing and standart settings </h3>
-          <div class="item"><video autoplay muted loop controls><source src="static/videos/bonsai_full.mp4" type="video/mp4"></video></div>
-          <div class="item"><video autoplay muted loop controls><source src="static/videos/bonsai_full.mp4" type="video/mp4"></video></div>
-          <div class="item"><video autoplay muted loop controls><source src="static/videos/bonsai_full.mp4" type="video/mp4"></video></div>
-          <div class="item"><video autoplay muted loop controls><source src="static/videos/bonsai_full.mp4" type="video/mp4"></video></div>
-          <div class="item"><video autoplay muted loop controls><source src="static/videos/bonsai_full.mp4" type="video/mp4"></video></div>
-          <div class="item"><video autoplay muted loop controls><source src="static/videos/bonsai_full.mp4" type="video/mp4"></video></div>
-        </div>
-        <div id="results-carousel" class="carousel results-carousel">
-          <!-- Repeatable video items -->
-          <h3 class="title is-3">Tank&Templeas and Deep Blending front facing and standart settings</h3>
-          <div class="item"><video autoplay muted loop controls><source src="static/videos/truck_full.mp4" type="video/mp4"></video></div>
-          <div class="item"><video autoplay muted loop controls><source src="static/videos/truck_full.mp4" type="video/mp4"></video></div>
-          <div class="item"><video autoplay muted loop controls><source src="static/videos/truck_full.mp4" type="video/mp4"></video></div>
-          <div class="item"><video autoplay muted loop controls><source src="static/videos/truck_full.mp4" type="video/mp4"></video></div>
-        </div>
-        <div id="results-carousel" class="carousel results-carousel">
-          <!-- Repeatable video items -->
-          <h3 class="title is-3">Real data. Try out on your video in our demo for front facing scenes! </h3>
-          <div class="item"><video autoplay muted loop controls><source src="static/videos/tram.mp4" type="video/mp4"></video></div>
-          <div class="item"><video autoplay muted loop controls><source src="static/videos/tram.mp4" type="video/mp4"></video></div>
-          <div class="item"><video autoplay muted loop controls><source src="static/videos/tram.mp4" type="video/mp4"></video></div>
-          <div class="item"><video autoplay muted loop controls><source src="static/videos/tram.mp4" type="video/mp4"></video></div>
-          <div class="item"><video autoplay muted loop controls><source src="static/videos/tram.mp4" type="video/mp4"></video></div>
-          <div class="item"><video autoplay muted loop controls><source src="static/videos/tram.mp4" type="video/mp4"></video></div>
-        </div>
+  <!-- Dataset Results Section -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3">EDGS is robust across various settings and datasets</h2>
+      
+      <!-- NeRF Synthetic Section -->
+      <h3 class="title is-4 mt-5">NeRF Synthetic</h3>
+      <div class="carousel results-carousel">
+        <div class="item"><video autoplay muted loop controls><source src="static/videos/lego_full.mp4" type="video/mp4"></video></div>
+        <div class="item"><video autoplay muted loop controls><source src="static/videos/lego_full.mp4" type="video/mp4"></video></div>
+        <div class="item"><video autoplay muted loop controls><source src="static/videos/lego_full.mp4" type="video/mp4"></video></div>
+        <div class="item"><video autoplay muted loop controls><source src="static/videos/lego_full.mp4" type="video/mp4"></video></div>
+      </div>
+
+      <!-- Mip-NeRF Section -->
+      <h3 class="title is-4 mt-5">Mip-NeRF front facing and standard settings</h3>
+      <div class="carousel results-carousel">
+        <div class="item"><video autoplay muted loop controls><source src="static/videos/bonsai_full.mp4" type="video/mp4"></video></div>
+        <div class="item"><video autoplay muted loop controls><source src="static/videos/bonsai_full.mp4" type="video/mp4"></video></div>
+        <div class="item"><video autoplay muted loop controls><source src="static/videos/bonsai_full.mp4" type="video/mp4"></video></div>
+      </div>
+
+      <!-- Tank&Temple Section -->
+      <h3 class="title is-4 mt-5">Tank&Temple and Deep Blending front facing and standard settings</h3>
+      <div class="carousel results-carousel">
+        <div class="item"><video autoplay muted loop controls><source src="static/videos/truck_full.mp4" type="video/mp4"></video></div>
+        <div class="item"><video autoplay muted loop controls><source src="static/videos/truck_full.mp4" type="video/mp4"></video></div>
+        <div class="item"><video autoplay muted loop controls><source src="static/videos/truck_full.mp4" type="video/mp4"></video></div>
+      </div>
+
+      <!-- Real Data Section -->
+      <h3 class="title is-4 mt-5">Real data. Try out on your video in our demo for front facing scenes!</h3>
+      <div class="carousel results-carousel">
+        <div class="item"><video autoplay muted loop controls><source src="static/videos/tram.mp4" type="video/mp4"></video></div>
+        <div class="item"><video autoplay muted loop controls><source src="static/videos/tram.mp4" type="video/mp4"></video></div>
+        <div class="item"><video autoplay muted loop controls><source src="static/videos/tram.mp4" type="video/mp4"></video></div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
 
   <!-- BibTeX -->
