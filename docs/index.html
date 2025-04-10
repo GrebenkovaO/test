@@ -112,24 +112,42 @@
 
 
 
-  <!-- Teaser -->
-  <section class="hero teaser">
-    <div class="container is-max-desktop">
-      <!-- Video Comparison Slider -->
-      <div class="twentytwenty-container" style="width: 100%; margin: 0 auto;">
-        <video autoplay muted loop playsinline width="100%">
-          <source src="./static/videos/teaser.mp4" type="video/mp4">
-        </video>
-        <video autoplay muted loop playsinline width="100%">
-          <source src="./static/videos/bonsai_full.mp4" type="video/mp4">
-        </video>
-      </div>
-
-      <h2 class="subtitle mt-3 has-text-centered">
-        <strong>EDGS</strong> replaces the incremental refinement process to speed up convergence — enabling high-quality and fast 3D reconstruction.
-      </h2>
+<!-- Teaser Section (Fixed) -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <!-- Video Comparison Slider -->
+    <div class="twentytwenty-container" style="width: 100%; margin: 0 auto;">
+      <video id="video1" autoplay muted loop playsinline>
+        <source src="./static/videos/teaser.mp4" type="video/mp4">
+      </video>
+      <video id="video2" autoplay muted loop playsinline>
+        <source src="./static/videos/bonsai_full.mp4" type="video/mp4">
+      </video>
     </div>
-  </section>
+
+    <h2 class="subtitle mt-3 has-text-centered">
+      <strong>EDGS</strong> replaces the incremental refinement process to speed up convergence — enabling high-quality and fast 3D reconstruction.
+    </h2>
+  </div>
+</section>
+
+<!-- Initialize TwentyTwenty after DOM loads -->
+<script>
+  $(window).on('load', function() {
+    $(".twentytwenty-container").twentytwenty({
+      default_offset_pct: 0.5, // Start with 50% split
+      orientation: 'horizontal',
+      before_label: 'Standard 3DGS',
+      after_label: 'EDGS',
+      no_overlay: true // Disable default overlay for videos
+    });
+    
+    // Ensure videos play properly in slider
+    document.querySelectorAll('.twentytwenty-container video').forEach(video => {
+      video.play();
+    });
+  });
+</script>
 
 
   <!-- Abstract -->
@@ -161,39 +179,28 @@
   </section>
 
 
-  <div class="columns is-vcentered" style="margin: 2rem 0;">
-    <!-- Text Column -->
-    <div class="column is-5">
-      <h3 class="title is-4" style="margin-bottom: 1.5rem;">
-        With Densification, individual Gaussians undergo multiple refinements before reaching their final states. 
-        EDGS provides an initialization that is already close to the final state.
+  <div class="container" style="max-width: 1000px; margin: 2rem auto;">
+    <!-- Text Block -->
+    <div class="has-text-centered mb-4" style="max-width: 700px; margin: 0 auto;">
+      <h3 class="title is-5">
+        With densification, individual Gaussians undergo multiple refinements before reaching their final states. EDGS provides an initialization that is already close to the final state.
       </h3>
     </div>
-    
-    <!-- Images Column -->
-    <div class="column is-7">
-      <div class="columns">
-        <!-- Image 1 with caption -->
-        <div class="column">
-          <figure class="image">
-            <img src="static/images/Absolute.png" alt="Absolute distance between initialization and final scene">
-          </figure>
-          <p class="has-text-centered is-size-6 mt-2">
-            <strong>Absolute Distance</strong><br>
-            Comparison between initial and final states
-          </p>
-        </div>
-        
-        <!-- Image 2 with caption -->
-        <div class="column">
-          <figure class="image">
-            <img src="static/images/Aggregated_distance.png" alt="Aggregated distance through optimization process">
-          </figure>
-          <p class="has-text-centered is-size-6 mt-2">
-            <strong>Aggregated Distance</strong><br>
-            Optimization process convergence
-          </p>
-        </div>
+  
+    <!-- Image Row (Smaller) -->
+    <div class="columns is-vcentered">
+      <!-- Image 1 -->
+      <div class="column">
+        <figure class="image" style="max-width: 400px; margin: 0 auto;">
+          <img src="static/images/Absolute.png" alt="Absolute distance" style="width: 100%; height: auto;">
+        </figure>
+      </div>
+      
+      <!-- Image 2 -->
+      <div class="column">
+        <figure class="image" style="max-width: 400px; margin: 0 auto;">
+          <img src="static/images/Aggregated_distance.png" alt="Aggregated distance" style="width: 100%; height: auto;">
+        </figure>
       </div>
     </div>
   </div>
