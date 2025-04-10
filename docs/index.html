@@ -195,14 +195,16 @@
   </section>
 
 
-  <div class="container" style="max-width: 1000px; margin: 1.5rem auto;">
-    <!-- Text Block -->
-    <div class="content has-text-justified">
-      <p>
-        With densification, individual Gaussians undergo multiple refinements before reaching their final states. EDGS provides an initialization that is already close to the final state. </p>
-    </div>
-  
-    <!-- Image Row (Smaller) -->
+
+  <section class="section hero ">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+          <h2 class="title is-3">How it works</h2>
+          <div class="content has-text-justified">
+            <p>
+              With densification, individual Gaussians undergo multiple refinements before reaching their final states. EDGS provides an initialization that is already close to the final state. </p>
+          </div>
+          <!-- Image Row (Smaller) -->
     <div class="columns is-vcentered">
       <!-- Image 1 -->
       <div class="column">
@@ -218,16 +220,19 @@
         </figure>
       </div>
     </div>
-  </div>
+      </div>
+    </div>
+  </section>
+
 
   <!-- Dataset Results Section -->
 <section class="hero is-small">
   <div class="hero-body">
-    <div class="container">
+    <div class="container is-centered has-text-centered">
       <h2 class="title is-3">EDGS is robust across various settings and datasets</h2>
       
       <!-- NeRF Synthetic Section -->
-      <h3 class="title is-4 mt-5">NeRF Synthetic</h3>
+      <h3 class="title is-5 has-text-weight-normal mt-5">NeRF Synthetic</h3>
       <div class="carousel results-carousel">
         <div class="item"><video autoplay muted loop controls><source src="static/videos/lego_full.mp4" type="video/mp4"></video></div>
         <div class="item"><video autoplay muted loop controls><source src="static/videos/lego_full.mp4" type="video/mp4"></video></div>
@@ -236,24 +241,30 @@
       </div>
 
       <!-- Mip-NeRF Section -->
-      <h3 class="title is-4 mt-5">Mip-NeRF front facing and standard settings</h3>
+      <h3 class="title is-5 has-text-weight-normal mt-5">Mip-NeRF front facing and standard settings</h3>
       <div class="carousel results-carousel">
+        <div class="item"><video autoplay muted loop controls><source src="static/videos/bonsai_full.mp4" type="video/mp4"></video></div>
+        <div class="item"><video autoplay muted loop controls><source src="static/videos/bonsai_full.mp4" type="video/mp4"></video></div>
         <div class="item"><video autoplay muted loop controls><source src="static/videos/bonsai_full.mp4" type="video/mp4"></video></div>
         <div class="item"><video autoplay muted loop controls><source src="static/videos/bonsai_full.mp4" type="video/mp4"></video></div>
         <div class="item"><video autoplay muted loop controls><source src="static/videos/bonsai_full.mp4" type="video/mp4"></video></div>
       </div>
 
       <!-- Tank&Temple Section -->
-      <h3 class="title is-4 mt-5">Tank&Temple and Deep Blending front facing and standard settings</h3>
+      <h3 class="title is-5 has-text-weight-normal mt-5">Tank&Temple and Deep Blending front facing and standard settings</h3>
       <div class="carousel results-carousel">
+        <div class="item"><video autoplay muted loop controls><source src="static/videos/truck_full.mp4" type="video/mp4"></video></div>
+        <div class="item"><video autoplay muted loop controls><source src="static/videos/truck_full.mp4" type="video/mp4"></video></div>
         <div class="item"><video autoplay muted loop controls><source src="static/videos/truck_full.mp4" type="video/mp4"></video></div>
         <div class="item"><video autoplay muted loop controls><source src="static/videos/truck_full.mp4" type="video/mp4"></video></div>
         <div class="item"><video autoplay muted loop controls><source src="static/videos/truck_full.mp4" type="video/mp4"></video></div>
       </div>
 
       <!-- Real Data Section -->
-      <h3 class="title is-4 mt-5">Real data. Try out on your video in our demo for front facing scenes!</h3>
+      <h3 class="title is-5 has-text-weight-normal mt-5">Real data. Try out on your video in our demo for front facing scenes!</h3>
       <div class="carousel results-carousel">
+        <div class="item"><video autoplay muted loop controls><source src="static/videos/tram.mp4" type="video/mp4"></video></div>
+        <div class="item"><video autoplay muted loop controls><source src="static/videos/tram.mp4" type="video/mp4"></video></div>
         <div class="item"><video autoplay muted loop controls><source src="static/videos/tram.mp4" type="video/mp4"></video></div>
         <div class="item"><video autoplay muted loop controls><source src="static/videos/tram.mp4" type="video/mp4"></video></div>
         <div class="item"><video autoplay muted loop controls><source src="static/videos/tram.mp4" type="video/mp4"></video></div>
@@ -287,16 +298,5 @@
       </div>
     </div>
   </footer>
-
-  <script>
-    $(window).on('load', function() {
-      $(".twentytwenty-container").twentytwenty({
-        default_offset_pct: 0.5, // Start with 50% split
-        orientation: 'horizontal', // 'horizontal' or 'vertical'
-        before_label: 'Standard 3DGS',
-        after_label: 'EDGS',
-      });
-    });
-  </script>
 </body>
 </html>
