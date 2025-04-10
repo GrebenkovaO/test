@@ -116,7 +116,7 @@
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <!-- Video Comparison Slider -->
-    <div class="twentytwenty-container" style="width: 100%; margin: 0 auto;">
+    <div class="twentytwenty-container twentytwenty-container-top" style="width: 100%; margin: 0 auto;">
       <video id="video1" autoplay muted loop playsinline>
         <source src="./static/videos/teaser.mp4" type="video/mp4">
       </video>
@@ -131,24 +131,17 @@
   </div>
 </section>
 
-<!-- Initialize TwentyTwenty after DOM loads -->
 <script>
-  $(window).on('load', function() {
-    $(".twentytwenty-container").twentytwenty({
-      default_offset_pct: 0.5, // Start with 50% split
-      orientation: 'horizontal',
-      before_label: 'Standard 3DGS',
-      after_label: 'EDGS',
-      no_overlay: true // Disable default overlay for videos
-    });
-    
-    // Ensure videos play properly in slider
-    document.querySelectorAll('.twentytwenty-container video').forEach(video => {
-      video.play();
-    });
+  $(".twentytwenty-container-top").twentytwenty({
+    before_label: '3DGS',
+    after_label: 'Our EDGS',
+    default_offset_pct: 0.5,
+    no_overlay: true // Disable default overlay for videos
   });
+  // Ensure videos play properly in slider
+  document.querySelectorAll('.twentytwenty-container video').forEach(video => {
+      video.play();
 </script>
-
 
   <!-- Abstract -->
   <section class="section">
@@ -179,12 +172,11 @@
   </section>
 
 
-  <div class="container" style="max-width: 1000px; margin: 2rem auto;">
+  <div class="container" style="max-width: 1000px; margin: 1.5rem auto;">
     <!-- Text Block -->
-    <div class="has-text-centered mb-4" style="max-width: 700px; margin: 0 auto;">
-      <h3 class="title is-5">
-        With densification, individual Gaussians undergo multiple refinements before reaching their final states. EDGS provides an initialization that is already close to the final state.
-      </h3>
+    <div class="content has-text-justified">
+      <p>
+        With densification, individual Gaussians undergo multiple refinements before reaching their final states. EDGS provides an initialization that is already close to the final state. </p>
     </div>
   
     <!-- Image Row (Smaller) -->
