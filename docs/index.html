@@ -93,18 +93,28 @@
     </div>
   </section>
 
+
+
   <!-- Teaser -->
   <section class="hero teaser">
-    <div class="container is-max-desktop">
-      <div class="hero-body has-text-centered">
-        <video id="teaser" autoplay muted loop playsinline>
-          <source src="./static/videos/teaser.mp4" type="video/mp4">
-        </video>
-        <h2 class="subtitle mt-3">
-          <strong>EDGS</strong> replaces the incremental refinement process to speed up convergence — enabling high-quality and fast 3D reconstuction.
-        </h2>
+  <div id="results-carousel-horizontal" class="carousel results-carousel">
+    <div class="twoitem">
+      <div class="twentytwenty-container twentytwenty-container-top">
+        <div class="cmpcontent">
+          <video id="teaser" autoplay muted loop playsinline>
+            <source src="./static/videos/teaser.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="cmpcontent">
+          <video id="teaser" autoplay muted loop playsinline>
+            <source src="./static/videos/bonsai_full.mp4" type="video/mp4">
+          </video>
+        </div>
       </div>
     </div>
+  <h2 class="subtitle mt-3">
+    <strong>EDGS</strong> replaces the incremental refinement process to speed up convergence — enabling high-quality and fast 3D reconstuction.
+  </h2>
   </section>
 
   <!-- Abstract -->
@@ -135,16 +145,19 @@
     </div>
   </section>
 
-  <!-- Visualizations -->
-  <section class="hero is-light is-small">
-    <div class="hero-body">
-      <div class="container">
-        <h2 class="title">EDGS initializes with better distribution.</h2>
-        <iframe src="static/images/full_path.pdf" width="100%" height="550"></iframe>
-        <iframe src="static/images/start_end.pdf" width="100%" height="550"></iframe>
-      </div>
-    </div>
-  </section>
+
+  <h3 class="title has-text-centered">
+    With Densification ndividual Gaussians undergo multiple refinements before reaching their final states. EDGS provides an initialization that is already close to the final state
+    </h3>
+
+    <figure style="text-align: center;">
+    <img id="comparison" width="90%" src="static/images/Absolute.png" alt="Absolute distance between initialization and final scene"/>
+    </figure>
+
+    <figure style="text-align: center;">
+    <img id="comparison" width="90%" src="static/images/Aggregated_distance.png" alt="Aggregated distance through optimization process"/>
+    </figure>
+
 
   <!-- Dataset Results Carousel -->
   <section class="hero is-small">
