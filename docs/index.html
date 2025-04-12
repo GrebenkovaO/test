@@ -110,7 +110,59 @@
     </div>
   </section>
 
-
+  <div class="parent-video-compare-container">
+    <hr />
+  </div>
+  
+  <div class="parent-video-compare-container" id="edgsComparison">
+    <div class="video-compare-container" id="edgsDiv">
+      <video
+        class="video"
+        id="edgsVideo"
+        loop
+        playsinline
+        autoplay
+        muted
+        src="./static/videos/bicycle_both-rand.mp4"
+        onplay="resizeAndPlay(this)"
+      ></video>
+      <canvas height="0" class="videoMerge" id="edgsMerge"></canvas>
+    </div>
+    <br>
+    <p class="justified">
+      Novel view reconstructions comparing <strong>(right) EDGS</strong>
+      with <strong>(left) standard 3DGS</strong>. Our method achieves 
+      higher fidelity in complex areas (e.g., detailed textures and 
+      geometric structures) while converging 10× faster.
+    </p>
+  </div>
+  
+  <script>
+    function isSafari() {
+      return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    }
+    
+    function resizeAndPlay(video) {
+      // Your existing resize/play logic here
+      video.style.width = '100%';
+    }
+  
+    if (isSafari()) {
+      document.getElementById('edgsComparison').innerHTML = `
+        <video class="safari-video" controls autoplay muted>
+          <source src="./static/videos/edgs_comparison.mp4" type="video/mp4">
+        </video>
+        <p class="justified">
+          Novel view reconstructions comparing <strong>EDGS (right)</strong>
+          with <strong>standard 3DGS (left)</strong>. Higher fidelity in 
+          complex areas with 10× faster convergence.
+        </p>`;
+    }
+  </script>
+  
+  <div class="parent-video-compare-container">
+    <hr />
+  </div>
 
   <section class="hero teaser">
     <div class="container is-max-desktop">
@@ -196,30 +248,40 @@
 
 
 
-  <section class="section hero ">
+  <section class="section">
     <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-          <h2 class="title is-3">How it works</h2>
-          <div class="content has-text-justified">
-            <p>
-              With densification, individual Gaussians undergo multiple refinements before reaching their final states. EDGS provides an initialization that is already close to the final state. </p>
-          </div>
-          <!-- Image Row (Smaller) -->
-    <div class="columns is-vcentered">
-      <!-- Image 1 -->
-      <div class="column">
-        <figure class="image" style="max-width: 400px; margin: 0 auto;">
-          <img src="static/images/Absolute.png" alt="Absolute distance" style="width: 100%; height: auto;">
-        </figure>
-      </div>
+      <!-- Title -->
+      <h2 class="title is-3 has-text-centered mb-5">How It Works</h2>
       
-      <!-- Image 2 -->
-      <div class="column">
-        <figure class="image" style="max-width: 400px; margin: 0 auto;">
-          <img src="static/images/Aggregated_distance.png" alt="Aggregated distance" style="width: 100%; height: auto;">
-        </figure>
+      <!-- Description Text -->
+      <div class="content has-text-centered mb-6" style="max-width: 800px; margin: 0 auto;">
+        <p class="is-size-5">
+          With densification, individual Gaussians undergo multiple refinements before reaching their final states. 
+          EDGS provides an initialization that is already close to the final state.
+        </p>
       </div>
-    </div>
+  
+      <!-- Image Grid -->
+      <div class="columns is-centered is-vcentered">
+        <!-- Image 1 -->
+        <div class="column is-half">
+          <figure class="image" style="max-width: 500px; margin: 0 auto;">
+            <img src="static/images/Absolute.png" alt="Absolute distance between initialization and final state" style="width: 100%; height: auto;">
+            <figcaption class="is-size-6 mt-2 has-text-centered">
+              Absolute distance comparison
+            </figcaption>
+          </figure>
+        </div>
+        
+        <!-- Image 2 -->
+        <div class="column is-half">
+          <figure class="image" style="max-width: 500px; margin: 0 auto;">
+            <img src="static/images/Aggregated_distance.png" alt="Aggregated distance through optimization" style="width: 100%; height: auto;">
+            <figcaption class="is-size-6 mt-2 has-text-centered">
+              Optimization convergence
+            </figcaption>
+          </figure>
+        </div>
       </div>
     </div>
   </section>
