@@ -44,6 +44,20 @@
   <script src="./static/js/index.js"></script>
   <script src="./static/js/video_comparison.js"></script>
   <script src="./static/js/dics.original.js"></script>
+  <style>
+    body {
+      text-align: center;
+      background-color: #f0f0f0; /* Optional: Set a background color for better visibility */
+    }
+    .larger-arrow {
+      font-size: 2em; /* Adjust the font size as needed */
+      letter-spacing: 4em; /* Adjust the letter spacing as needed */
+      display: inline-block; /* Ensures text-align works */
+    }
+    .tbl_video {
+      margin-bottom: 40px;
+    }
+  </style>
 </head>
 
 <body>
@@ -134,27 +148,17 @@
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
-        const safariVideo = document.createElement("video");
-        safariVideo.className = "safari-video";
-        safariVideo.autoplay = true;
-        safariVideo.muted = true;
-        safariVideo.playsInline = true;
-        safariVideo.loop = true;
-        safariVideo.preload = "metadata";
-  
-        const source = document.createElement("source");
-        source.src = "./static/training_rand_compare/bicycle_both-rand.mp4";
-        source.type = "video/mp4";
-        safariVideo.appendChild(source);
-  
-        const container = document.getElementById("trainb");
-        container.innerHTML = '';
-        container.appendChild(safariVideo);
-      }
-    });
+    function isSafari() {
+      return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    }
+    if (isSafari()) {
+      document.getElementById('trainb').innerHTML =
+        `<video class="safari-video" controls autoplay>
+          <source src="./static/videos/bicycle_both-rand.mp4" type="video/mp4" >
+        </video>`;
+    }
   </script>
+
  
 
 
