@@ -33,10 +33,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
   <link rel="icon" href="./static/images/favicon.svg">
-  <link rel="stylesheet" href="./resources/css/slide.css" />
-
-  <link rel="stylesheet" href="./resources/css/bulma.min.css" />
-  <link rel="stylesheet" href="./resources/css/dics.original.css" />
+  <link rel="stylesheet" href="./static/css/slide.css" />
+  <link rel="stylesheet" href="./static/css/dics.original.css" />
 
   <!-- Scripts (Load jQuery first) -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -44,8 +42,8 @@
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
-  <script src="./resources/js/video_comparison.js"></script>
-  <script src="./resources/js/dics.original.js"></script>
+  <script src="./static/js/video_comparison.js"></script>
+  <script src="./static/js/dics.original.js"></script>
 </head>
 
 <body>
@@ -125,7 +123,7 @@
         playsinline
         autoplay
         muted
-        src="./resources/training_rand_compare/bicycle_both-rand.mp4"
+        src="./static/videos/bicycle_both-rand.mp4"
         onplay="resizeAndPlay(this)"
       ></video>
       <canvas height="0" class="videoMerge" id="materialsMerge"></canvas>
@@ -147,45 +145,11 @@
     if (isSafari()) {
       document.getElementById('trainb').innerHTML =
         `<video class="safari-video" controls autoplay>
-          <source src="./resources/training_rand_compare/bicycle_both-rand.mp4" type="video/mp4" >
+          <source src="./static/training_rand_compare/bicycle_both-rand.mp4" type="video/mp4" >
         </video>`;
     }
   </script>
 
-  <div class="parent-video-compare-container">
-    <hr />
-  </div>
-
-  <h1>Abstract</h1>
-  <div class="parent-video-compare-container">
-    <p class="justified">
-      While 3D Gaussian Splatting has recently become popular for neural
-      rendering, current methods rely on carefully engineered cloning and
-      splitting strategies for placing Gaussians, which can lead to
-      poor-quality renderings, and reliance on a good initialization. In
-      this work, we rethink the set of 3D Gaussians as a random sample
-      drawn from an underlying probability distribution describing the
-      physical representation of the scene---in other words, Markov Chain
-      Monte Carlo (MCMC) samples. Under this view, we show that the 3D
-      Gaussian updates can be converted as Stochastic Gradient Langevin
-      Dynamics (SGLD) update by simply introducing noise. We then rewrite
-      the densification and pruning strategies in 3D Gaussian Splatting as
-      simply a deterministic state transition of MCMC samples, removing
-      these heuristics from the framework. To do so, we revise the
-      `cloning' of Gaussians into a relocalization scheme that
-      approximately preserves sample probability. To encourage efficient
-      use of Gaussians, we introduce a regularizer that promotes the
-      removal of unused Gaussians. On various standard evaluation scenes,
-      we show that our method provides improved rendering quality, easy
-      control over the number of Gaussians, and robustness to
-      initialization.
-    </p>
-  </div>
-
-  <div class="parent-video-compare-container">
-    <hr />
-  </div>
-  </section>
 
 
   <!-- Abstract -->
