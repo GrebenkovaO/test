@@ -36,8 +36,6 @@
   <link rel="stylesheet" href="./static/css/slide.css" />
   <link rel="stylesheet" href="./static/css/dics.original.css" />
 
-  <!-- Scripts (Load jQuery first) -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script defer src="./static/js/fontawesome.all.min.js"></script>
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
@@ -132,7 +130,7 @@
         playsinline
         autoplay
         muted
-        src="./static/videos/teaser1.mp4"
+        src="./static/videos/teaser.mp4"
         onplay="resizeAndPlay(this)"
       ></video>
       <canvas height="0" class="videoMerge" id="materialsMerge"></canvas>
@@ -151,7 +149,7 @@
     if (isSafari()) {
       document.getElementById('trainb').innerHTML =
         `<video class="safari-video" controls autoplay>
-          <source src="./static/videos/teaser1.mp4" type="video/mp4" >
+          <source src="./static/videos/teaser.mp4" type="video/mp4" >
         </video>`;
     }
   </script>
