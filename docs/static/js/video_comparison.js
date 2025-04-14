@@ -88,7 +88,7 @@ function clamp(val, min, max) {
           // Draw text overlays
           mergeContext.font = "40px Arial";
           mergeContext.fillStyle = "white";
-          mergeContext.fillText("Our Method", 1010, 50);
+          mergeContext.fillText("Our Method", 900, 50);
           mergeContext.fillText("3DGS", 10, 50);
   
           requestAnimationFrame(drawLoop);
