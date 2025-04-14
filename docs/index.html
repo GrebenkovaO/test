@@ -183,27 +183,19 @@
           <h2 class="title is-3">Abstract</h2>
           <div class="content has-text-justified">
             <p>
-              3D Gaussian Splatting reconstructs scenes by starting from a sparse Structure-from-Motion initialization and iteratively refining under-reconstructed regions. This process is inherently slow,
-            as it requires multiple densification steps where Gaussians are repeatedly split and adjusted, following a lengthy and redundant optimization path. 
-            Moreover, this incremental approach often leads to suboptimal renderings, particularly in complex or high-frequency regions where detail is critical.
+              3D Gaussian Splatting reconstructs scenes by starting from a sparse Structure-from-Motion initialization and iteratively refining under-reconstructed regions. This process is inherently slow, as it requires multiple densification steps where Gaussians are repeatedly split and adjusted, following a lengthy optimization path. Moreover, this incremental approach often leads to suboptimal renderings, particularly in high-frequency regions where detail is critical.
             </p>
             <p>
-              We propose a fundamentally different approach: eliminating the densification step and replacing it with a direct initialization of 3D Gaussians using triangulated pixels from dense image correspondences.
-              This initialization provides each Gaussian with well-informed colors, scales, and positions from the outset, dramatically shortening the optimization path and removing the need for densification. 
-              Unlike traditional methods that rely on sparse keypoints, our dense initialization ensures uniform detail across the scene, even in high-frequency regions where 3DGS and other methods typically struggle. 
-              Additionally, all splats are optimized in parallel from the start, bypassing the need to wait for densification to add new Gaussians.
+              We propose a fundamentally different approach: we eliminate densification process with a one-step approximation of scene geometry using triangulated pixels from dense image correspondences. This dense initialization allows us to estimate rough geometry of the scene while preserving rich details from input RGB images, providing each Gaussian with well-informed colors, scales, and positions. As a result, we dramatically shorten the optimization path and remove the need for densification. Unlike traditional methods that rely on sparse keypoints, our dense initialization ensures uniform detail across the scene, even in high-frequency regions where 3DGS and other methods struggle. Moreover, since all splats are initialized in parallel at the start of optimization, we eliminate the need to wait for densification to adjust new Gaussians.
             </p>
             <p>
-              <strong>EDGS</strong> not only outperforms speed-optimized models in training efficiency but also achieves higher rendering quality than state-of-the-art approaches, all while using only half the splats of standard 3DGS. 
-            It is fully compatible with other 3DGS acceleration techniques, making it a versatile and efficient solution that can be integrated with existing approaches. 
+              <strong>EDGS</strong> not only outperforms speed-optimized models in training efficiency but also achieves higher rendering quality than state-of-the-art approaches, all while using only half the splats of standard 3DGS. It is fully compatible with other 3DGS acceleration techniques, making it a versatile and efficient solution that can be integrated with existing approaches. 
             </p>
           </div>
         </div>
       </div>
     </div>
   </section>
-
-
 
   <section class="section">
     <div class="container is-max-desktop">
@@ -216,7 +208,7 @@
       <div class="content has-text-justified">
         <p>
           With densification, individual Gaussians undergo multiple refinements before reaching their final states. 
-          EDGS provides an initialization that is already close to the final state. Rather than waiting for the model to gradually fill in missing details, we precompute a dense set of 3D Gaussians by triangulating dense 2D correspondences across multiple input views. Since we know the ray for each pixel but lack its depth, we recover 3D positions using multi-view dense matching. This allows us to assign each Gaussian well-informed initial properties—position, color, and scale—from the very beginning.
+          <strong>EDGS</strong> provides an initialization that is <i>already close to the final state</i>. Rather than waiting for the model to gradually fill in missing details, we precompute a dense set of 3D Gaussians by triangulating dense 2D correspondences across multiple input views. Knowing the viewing rays for each correspondence pixel and the camera poses—but not the depth along those rays—we recover 3D positions by triangulating matched pixels between image pairs. This allows us to assign each Gaussian well-informed initial properties like position, color, and scale from the start.
           Our method significantly reduces the final coordinate displacement, as Gaussians are initialized closer to surfaces, requiring fewer adjustments.
           Compared to 3DGS, our model reduces the final coordinate travel distance by 50 times, and the total path length in coordinates is 30 times shorter.
           The color path length also decreases, though less dramatically, by approximately a factor of two, as small oscillations remain along the trajectory. 
