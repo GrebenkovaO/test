@@ -133,7 +133,7 @@
       Novel view reconstructions comparing <strong>(right) EDGS</strong>
       with <strong>(left) standard 3DGS</strong>. Our method achieves 
       higher fidelity in complex areas (e.g., detailed textures and 
-      geometric structures) while converging 10× faster.
+      geometric structures) while converging 10× faster. <strong>EDGS</strong> replaces the incremental refinement process to speed up convergence — enabling high-quality and fast 3D reconstruction.
     </p>
   </div>
   
@@ -164,59 +164,14 @@
     <hr />
   </div>
 
-  <section class="hero teaser">
-    <div class="container is-max-desktop">
-      <!-- Video Comparison Slider -->
-      <div class="twentytwenty-container twentytwenty-container-top" style="width: 100%; margin: 0 auto;">
-        <div>
-          <video id="video1" autoplay muted loop playsinline>
-            <source src="./static/videos/bonsai_front.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div>
-          <video id="video2" autoplay muted loop playsinline>
-            <source src="./static/videos/bonsai_front.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
+  
   
       <h2 class="subtitle mt-3 has-text-centered">
-        <strong>EDGS</strong> replaces the incremental refinement process to speed up convergence — enabling high-quality and fast 3D reconstruction.
+       
       </h2>
     </div>
   </section>
-  
-  <!-- Make sure jQuery, jQuery event.move, jQuery.twentytwenty.js and twentytwenty.css are included -->
-  <link rel="stylesheet" href="path_to/twentytwenty.css">
-  <script src="path_to/jquery.js"></script>
-  <script src="path_to/jquery.event.move.js"></script>
-  <script src="path_to/jquery.twentytwenty.js"></script>
-  
-  <script>
-    window.addEventListener('load', function () {
-      // Wait until both videos have metadata loaded
-      const video1 = document.getElementById('video1');
-      const video2 = document.getElementById('video2');
-  
-      const checkReady = () => {
-        if (video1.readyState >= 2 && video2.readyState >= 2) {
-          $(".twentytwenty-container-top").twentytwenty({
-            before_label: '3DGS',
-            after_label: 'Our EDGS',
-            default_offset_pct: 0.5,
-            no_overlay: true
-          });
-  
-          video1.play();
-          video2.play();
-        } else {
-          setTimeout(checkReady, 100);
-        }
-      };
-  
-      checkReady();
-    });
-  </script>
+
 
   <!-- Abstract -->
   <section class="section hero is-light">
@@ -251,13 +206,17 @@
   <section class="section">
     <div class="container is-max-desktop">
       <!-- Title -->
+      <div class="column is-four-fifths">
       <h2 class="title is-3 has-text-centered mb-5">How It Works</h2>
       
       <!-- Description Text -->
-      <div class="content has-text-centered mb-6" style="max-width: 800px; margin: 0 auto;">
-        <p class="is-size-5">
+      <div class="content has-text-justified">
+        <p>
           With densification, individual Gaussians undergo multiple refinements before reaching their final states. 
-          EDGS provides an initialization that is already close to the final state.
+          EDGS provides an initialization that is already close to the final state. Rather than waiting for the model to gradually fill in missing details, we precompute a dense set of 3D Gaussians by triangulating dense 2D correspondences across multiple input views. Since we know the ray for each pixel but lack its depth, we recover 3D positions using multi-view dense matching. This allows us to assign each Gaussian well-informed initial properties—position, color, and scale—from the very beginning.
+          Our method significantly reduces the final coordinate displacement, as Gaussians are initialized closer to surfaces, requiring fewer adjustments.
+          Compared to 3DGS, our model reduces the final coordinate travel distance by 50 times, and the total path length in coordinates is 30 times shorter.
+          The color path length also decreases, though less dramatically, by approximately a factor of two, as small oscillations remain along the trajectory. 
         </p>
       </div>
   
@@ -267,9 +226,6 @@
         <div class="column is-half">
           <figure class="image" style="max-width: 500px; margin: 0 auto;">
             <img src="static/images/Absolute.png" alt="Absolute distance between initialization and final state" style="width: 100%; height: auto;">
-            <figcaption class="is-size-6 mt-2 has-text-centered">
-              Absolute distance comparison
-            </figcaption>
           </figure>
         </div>
         
@@ -277,13 +233,11 @@
         <div class="column is-half">
           <figure class="image" style="max-width: 500px; margin: 0 auto;">
             <img src="static/images/Aggregated_distance.png" alt="Aggregated distance through optimization" style="width: 100%; height: auto;">
-            <figcaption class="is-size-6 mt-2 has-text-centered">
-              Optimization convergence
-            </figcaption>
           </figure>
         </div>
       </div>
     </div>
+  </div>
   </section>
 
 
