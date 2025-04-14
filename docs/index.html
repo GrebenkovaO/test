@@ -30,22 +30,22 @@
   <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
   <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
   <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-  <!-- Load TwentyTwenty CSS from CDN (more reliable) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twentytwenty/1.0.0/css/twentytwenty.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
   <link rel="icon" href="./static/images/favicon.svg">
+  <link rel="stylesheet" href="./resources/css/slide.css" />
+
+  <link rel="stylesheet" href="./resources/css/bulma.min.css" />
+  <link rel="stylesheet" href="./resources/css/dics.original.css" />
 
   <!-- Scripts (Load jQuery first) -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script defer src="./static/js/fontawesome.all.min.js"></script>
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
-  <!-- Load TwentyTwenty JS from CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/twentytwenty/1.0.0/js/jquery.twentytwenty.min.js"></script>
   <script src="./static/js/index.js"></script>
-  <script src="resources/js/video_comparison.js"></script>
-  <script src="resources/js/dics.original.js"></script>
+  <script src="./resources/js/video_comparison.js"></script>
+  <script src="./resources/js/dics.original.js"></script>
 </head>
 
 <body>
@@ -115,63 +115,76 @@
   <div class="parent-video-compare-container">
     <hr />
   </div>
-  
-  <div class="parent-video-compare-container" id="edgsComparison">
-    <div class="video-compare-container" id="edgsDiv">
+
+  <div class="parent-video-compare-container" id="trainb">
+    <div class="video-compare-container" id="materialsDiv">
       <video
         class="video"
-        id="edgsVideo"
+        id="materials"
         loop
         playsinline
         autoplay
         muted
-        src="./static/videos/bicycle_both-rand.mp4"
+        src="./resources/training_rand_compare/bicycle_both-rand.mp4"
         onplay="resizeAndPlay(this)"
       ></video>
-      <canvas height="0" class="videoMerge" id="edgsMerge"></canvas>
+      <canvas height="0" class="videoMerge" id="materialsMerge"></canvas>
     </div>
     <br>
     <p class="justified">
-      Novel view reconstructions comparing <strong>(right) EDGS</strong>
-      with <strong>(left) standard 3DGS</strong>. Our method achieves 
-      higher fidelity in complex areas (e.g., detailed textures and 
-      geometric structures) while converging 10× faster. <strong>EDGS</strong> replaces the incremental refinement process to speed up convergence — enabling high-quality and fast 3D reconstruction.
+      Novel view reconstructions for <strong>(right) our method</strong>
+      and <strong>(left) conventional</strong> 3D Gaussian Splatting with
+      random initializations. Our method, even with random initialization,
+      faithfully reconstructs the scene (e.g.. buildings at the back and
+      the ground texture) providing much higher quality renderings.
     </p>
   </div>
-  
+
   <script>
     function isSafari() {
       return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     }
-    
-    function resizeAndPlay(video) {
-      // Your existing resize/play logic here
-      video.style.width = '100%';
-    }
-  
     if (isSafari()) {
-      document.getElementById('edgsComparison').innerHTML = `
-        <video class="safari-video" controls autoplay muted>
-          <source src="./static/videos/edgs_comparison.mp4" type="video/mp4">
-        </video>
-        <p class="justified">
-          Novel view reconstructions comparing <strong>EDGS (right)</strong>
-          with <strong>standard 3DGS (left)</strong>. Higher fidelity in 
-          complex areas with 10× faster convergence.
-        </p>`;
+      document.getElementById('trainb').innerHTML =
+        `<video class="safari-video" controls autoplay>
+          <source src="./resources/training_rand_compare/bicycle_both-rand.mp4" type="video/mp4" >
+        </video>`;
     }
   </script>
-  
+
   <div class="parent-video-compare-container">
     <hr />
   </div>
 
-  
-  
-      <h2 class="subtitle mt-3 has-text-centered">
-       
-      </h2>
-    </div>
+  <h1>Abstract</h1>
+  <div class="parent-video-compare-container">
+    <p class="justified">
+      While 3D Gaussian Splatting has recently become popular for neural
+      rendering, current methods rely on carefully engineered cloning and
+      splitting strategies for placing Gaussians, which can lead to
+      poor-quality renderings, and reliance on a good initialization. In
+      this work, we rethink the set of 3D Gaussians as a random sample
+      drawn from an underlying probability distribution describing the
+      physical representation of the scene---in other words, Markov Chain
+      Monte Carlo (MCMC) samples. Under this view, we show that the 3D
+      Gaussian updates can be converted as Stochastic Gradient Langevin
+      Dynamics (SGLD) update by simply introducing noise. We then rewrite
+      the densification and pruning strategies in 3D Gaussian Splatting as
+      simply a deterministic state transition of MCMC samples, removing
+      these heuristics from the framework. To do so, we revise the
+      `cloning' of Gaussians into a relocalization scheme that
+      approximately preserves sample probability. To encourage efficient
+      use of Gaussians, we introduce a regularizer that promotes the
+      removal of unused Gaussians. On various standard evaluation scenes,
+      we show that our method provides improved rendering quality, easy
+      control over the number of Gaussians, and robustness to
+      initialization.
+    </p>
+  </div>
+
+  <div class="parent-video-compare-container">
+    <hr />
+  </div>
   </section>
 
 
