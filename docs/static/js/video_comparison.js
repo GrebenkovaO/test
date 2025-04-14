@@ -102,12 +102,12 @@ function playVids(videoId) {
             // Draw text overlay for our method
             mergeContext.font = "40px Arial";
             mergeContext.fillStyle = "white";
-            mergeContext.fillText("Our Method", 1010, 50);
+            mergeContext.fillText("Our Method (EDGS) ", 1010, 50);
 
             // Draw text overlay for our method
             mergeContext.font = "40px Arial";
             mergeContext.fillStyle = "white";
-            mergeContext.fillText("Baseline", 10, 50);           
+            mergeContext.fillText("3DGS", 10, 50);           
             // mergeContext.fillText("Gaussian", 10, 100);           
             // mergeContext.fillText("Splatting", 10, 150);           
             
