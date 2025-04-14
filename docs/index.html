@@ -110,7 +110,6 @@
     </div>
   </section>
 
-  <div class="columns is-centered has-text-centered">
   <div class="parent-video-compare-container" id="trainb">
     <div class="video-compare-container" id="materialsDiv">
       <video
@@ -135,20 +134,31 @@
   </div>
 
   <script>
-    function isSafari() {
-      return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    }
-    if (isSafari()) {
-      document.getElementById('trainb').innerHTML =
-        `<video class="safari-video" controls autoplay>
-          <source src="./static/training_rand_compare/bicycle_both-rand.mp4" type="video/mp4" >
-        </video>`;
-    }
+    document.addEventListener('DOMContentLoaded', () => {
+      if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+        const safariVideo = document.createElement("video");
+        safariVideo.className = "safari-video";
+        safariVideo.autoplay = true;
+        safariVideo.muted = true;
+        safariVideo.playsInline = true;
+        safariVideo.loop = true;
+        safariVideo.preload = "metadata";
+  
+        const source = document.createElement("source");
+        source.src = "./static/training_rand_compare/bicycle_both-rand.mp4";
+        source.type = "video/mp4";
+        safariVideo.appendChild(source);
+  
+        const container = document.getElementById("trainb");
+        container.innerHTML = '';
+        container.appendChild(safariVideo);
+      }
+    });
   </script>
-  </div>
+ 
 
 
-
+  
   <!-- Abstract -->
   <section class="section hero is-light">
     <div class="container is-max-desktop">
