@@ -288,35 +288,26 @@ object-fit: cover;
     max-width: none;
   }
 
-/* Ensure the video container adapts to screen size */
-.video-compare-container {
-  position: relative;
-  width: 100%;
-  max-width: 100%;
-  height: 0;
-  padding-top: 56.25%; /* 16:9 Aspect Ratio */
-  overflow: hidden;
-  background-color: #000;
-}
-
-.video-compare-container video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Ensures the video covers the area without stretching */
-}
-
-.video-compare-container canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
+  .video-compare-container {
+    position: relative;
+    width: 75%;
+    max-width: 75vw;
+    margin: 0 auto; /* Center horizontally */
+    padding-top: 42.1875%; /* This keeps a 16:9 aspect ratio of 75% width */
+    overflow: hidden;
+    background-color: #000;
+  }
+  
+  .video-compare-container video,
+  .video-compare-container canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
 /* Make sure text inside container is well spaced and responsive */
 .parent-video-compare-container p {
   font-size: 1rem;
