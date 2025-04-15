@@ -119,17 +119,13 @@ body {
   .results-carousel .item {
     margin: 5px;
     overflow: hidden;
-    border: 1px solid #bbb;
-    border-radius: 10px;
-    padding: 0;
+    padding: 20px;
     font-size: 0;
   }
   
   .results-carousel video {
     margin: 0;
   }
-
-  
 
 .carousel-caption p {
   text-align: center;
