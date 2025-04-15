@@ -36,12 +36,12 @@ function playVids(videoId) {
             var colStart = (vidWidth * position).clamp(0.0, vidWidth);
             var colWidth = (vidWidth - (vidWidth * position)).clamp(0.0, vidWidth);
             mergeContext.drawImage(vid,
-                0, 0, vidWidth, vidHeight,
+                vidWidth, 0, vidWidth, vidHeight,
                 0, 0, vidWidth, vidHeight
             );
             mergeContext.drawImage(vid,
-                vidWidth + colStart, 0, colWidth, vidHeight,
-                vidWidth + colStart, 0, colWidth, vidHeight
+                colStart, 0, colWidth, vidHeight,
+                colStart, 0, colWidth, vidHeight
             );
             requestAnimationFrame(drawLoop);
 
@@ -102,7 +102,7 @@ function playVids(videoId) {
             // Draw text overlay for our method
             mergeContext.font = "40px Arial";
             mergeContext.fillStyle = "white";
-            mergeContext.fillText("Our Method", vidWidth + 10, 50);
+            mergeContext.fillText("Our Method", 1010, 50);
 
             // Draw text overlay for our method
             mergeContext.font = "40px Arial";
