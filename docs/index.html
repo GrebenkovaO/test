@@ -35,7 +35,9 @@
   <link rel="icon" href="./static/images/compvis_logo.png">
   <link rel="stylesheet" href="./static/css/slide.css" />
   <link rel="stylesheet" href="./static/css/dics.original.css" />
-
+  <script>
+    window.HELP_IMPROVE_VIDEOJS = false;
+  </script>
   <script defer src="./static/js/fontawesome.all.min.js"></script>
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
@@ -186,44 +188,6 @@
       </div>
     </section>
 
-    <section class="section">
-      <div class="container is-max-desktop">
-        <!-- Title -->
-        <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-        <h2 class="title is-3 has-text-centered mb-5">How It Works</h2>
-        
-        <!-- Description Text -->
-        <div class="content has-text-justified">
-          <p>
-            With densification, individual Gaussians undergo multiple refinements before reaching their final states. 
-            <strong>EDGS</strong> provides an initialization that is <i>already close to the final state</i>. Rather than waiting for the model to gradually fill in missing details, we precompute a dense set of 3D Gaussians by triangulating dense 2D correspondences across multiple input views. Knowing the viewing rays for each correspondence pixel and the camera poses—but not the depth along those rays—we recover 3D positions by triangulating matched pixels between image pairs. This allows us to assign each Gaussian well-informed initial properties like position, color, and scale from the start.
-            Our method significantly reduces the final coordinate displacement, as Gaussians are initialized closer to surfaces, requiring fewer adjustments.
-            Compared to 3DGS, our model reduces the final coordinate travel distance by 50 times, and the total path length in coordinates is 30 times shorter.
-            The color path length also decreases, though less dramatically, by approximately a factor of two, as small oscillations remain along the trajectory. 
-          </p>
-        </div>
-    
-        <!-- Image Grid -->
-        <div class="columns is-centered is-vcentered">
-          <!-- Image 1 -->
-          <div class="column is-half">
-            <figure class="image" style="max-width: 500px; margin: 0 auto;">
-              <img src="static/images/Absolute.png" alt="Absolute distance between initialization and final state" style="width: 100%; height: auto;">
-            </figure>
-          </div>
-          
-          <!-- Image 2 -->
-          <div class="column is-half">
-            <figure class="image" style="max-width: 500px; margin: 0 auto;">
-              <img src="static/images/Aggregated_distance.png" alt="Aggregated distance through optimization" style="width: 100%; height: auto;">
-            </figure>
-          </div>
-        </div>
-      </div>
-       </div>
-    </div>
-    </section>
 
 
     <!-- Dataset Results Section -->
@@ -245,10 +209,10 @@
         <!-- NeRF Synthetic Section -->
         <h3 class="title is-5 has-text-weight-normal mt-5">NeRF Synthetic</h3>
         <div class="carousel results-carousel">
-          <div class="item"><video autoplay muted loop controls><source src="static/videos/lego_full.mp4" type="video/mp4"></video></div>
-          <div class="item"><video autoplay muted loop controls><source src="static/videos/lego_full.mp4" type="video/mp4"></video></div>
-          <div class="item"><video autoplay muted loop controls><source src="static/videos/lego_full.mp4" type="video/mp4"></video></div>
-          <div class="item"><video autoplay muted loop controls><source src="static/videos/lego_full.mp4" type="video/mp4"></video></div>
+          <div class="item"><video autoplay muted loop controls><source src="./static/videos/lego.mp4" type="video/mp4"></video></div>
+          <div class="item"><video autoplay muted loop controls><source src="./static/videos/drums.mp4" type="video/mp4"></video></div>
+          <div class="item"><video autoplay muted loop controls><source src="./static/videos/ship.mp4" type="video/mp4"></video></div>
+          <div class="item"><video autoplay muted loop controls><source src="./static/videos/micro.mp4" type="video/mp4"></video></div>
         </div>
 
         <!-- Mip-NeRF Section -->
@@ -272,6 +236,45 @@
         </div>
       </div>
     </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <!-- Title -->
+      <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+      <h2 class="title is-3 has-text-centered mb-5">How It Works</h2>
+      
+      <!-- Description Text -->
+      <div class="content has-text-justified">
+        <p>
+          With densification, individual Gaussians undergo multiple refinements before reaching their final states. 
+          <strong>EDGS</strong> provides an initialization that is <i>already close to the final state</i>. Rather than waiting for the model to gradually fill in missing details, we precompute a dense set of 3D Gaussians by triangulating dense 2D correspondences across multiple input views. Knowing the viewing rays for each correspondence pixel and the camera poses—but not the depth along those rays—we recover 3D positions by triangulating matched pixels between image pairs. This allows us to assign each Gaussian well-informed initial properties like position, color, and scale from the start.
+          Our method significantly reduces the final coordinate displacement, as Gaussians are initialized closer to surfaces, requiring fewer adjustments.
+          Compared to 3DGS, our model reduces the final coordinate travel distance by 50 times, and the total path length in coordinates is 30 times shorter.
+          The color path length also decreases, though less dramatically, by approximately a factor of two, as small oscillations remain along the trajectory. 
+        </p>
+      </div>
+  
+      <!-- Image Grid -->
+      <div class="columns is-centered is-vcentered">
+        <!-- Image 1 -->
+        <div class="column is-half">
+          <figure class="image" style="max-width: 500px; margin: 0 auto;">
+            <img src="static/images/Absolute.png" alt="Absolute distance between initialization and final state" style="width: 100%; height: auto;">
+          </figure>
+        </div>
+        
+        <!-- Image 2 -->
+        <div class="column is-half">
+          <figure class="image" style="max-width: 500px; margin: 0 auto;">
+            <img src="static/images/Aggregated_distance.png" alt="Aggregated distance through optimization" style="width: 100%; height: auto;">
+          </figure>
+        </div>
+      </div>
+    </div>
+     </div>
+  </div>
   </section>
 
 
