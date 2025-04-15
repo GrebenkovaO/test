@@ -122,13 +122,20 @@ Number.prototype.clamp = function(min, max) {
 };
     
     
-function resizeAndPlay(element)
-{
-  var cv = document.getElementById(element.id + "Merge");
-  cv.width = element.videoWidth/2;
-  cv.height = element.videoHeight;
-  element.play();
-  element.style.height = "0px";  // Hide video without stopping it
-    
-  playVids(element.id);
-}
+function resizeAndPlay(videoElement) {
+    const canvasId = videoElement.id + "Merge";
+    const canvas = document.getElementById(canvasId);
+  
+    if (!canvas) {
+      console.warn(`Canvas with ID '${canvasId}' not found.`);
+      return;
+    }
+  
+    canvas.width = videoElement.videoWidth / 2;
+    canvas.height = videoElement.videoHeight;
+  
+    videoElement.play();
+    videoElement.style.height = "0px"; // Hide the video while it plays
+  
+    playVids(videoElement.id);
+  }

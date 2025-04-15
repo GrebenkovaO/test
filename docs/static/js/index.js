@@ -29,6 +29,11 @@ $(document).ready(function() {
 
     });
 
+    if (typeof bulmaCarousel === 'undefined') {
+      console.error('bulmaCarousel is not loaded!');
+      return;
+    }
+
     var options = {
 			slidesToScroll: 1,
 			slidesToShow: 3,
