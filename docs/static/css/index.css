@@ -254,6 +254,19 @@ object-fit: cover;
   border-radius: 5px;
 }
 
+/* Video caption styles */
+.video-caption {
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 1rem;
+  line-height: 1.4;
+  color: #333; /* Adjust color as needed */
+  font-weight: 500;
+  padding: 0 10px;
+  white-space: normal; /* Allows text to wrap naturally */
+  word-wrap: break-word; /* Ensures long words break properly */
+}
 
 .centered-line2 {
   width: 75%; /* Adjust the width as needed */
@@ -307,13 +320,14 @@ object-fit: cover;
     height: 100%;
     object-fit: cover;
   }
-  
+
 /* Make sure text inside container is well spaced and responsive */
 .parent-video-compare-container p {
   font-size: 1rem;
-  line-height: 1.5;
-  margin: 1rem 0;
-  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: auto;
 }
 
 /* Responsive adjustments */
