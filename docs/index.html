@@ -57,189 +57,191 @@
       align-items: center;
       justify-content: center;
       text-align: center;
+      margin: auto;
     }
   </style>
 </head>  
 
 <body>
-  <!-- Navbar -->
-  <nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-      <a role="button" class="navbar-burger" aria-label="menu" </body>aria-expanded="false">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
-    </div>
-    <div class="navbar-menu">
-      <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">More Research</a>
-          <div class="navbar-dropdown">
-            <a class="navbar-item" href="https://compvis.github.io/wast3d/">WaST-3D</a>
+    <!-- Navbar -->
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a role="button" class="navbar-burger" aria-label="menu" </body>aria-expanded="false">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+      <div class="navbar-menu">
+        <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">More Research</a>
+            <div class="navbar-dropdown">
+              <a class="navbar-item" href="https://compvis.github.io/wast3d/">WaST-3D</a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </nav>
-    
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-body">
-      <div class="container is-max-desktop has-text-centered">
-        <h1 class="title is-1">EDGS: Eliminating Densification for Efficient Convergence of 3DGS</h1>
-        <p class="is-size-5">
-          <span><a href="https://www.linkedin.com/in/dmitry-kotovenko-dl/">Dmytro Kotovenko</a><sup>*</sup>, </span>
-          <span><a href="https://www.linkedin.com/in/grebenkovao/">Olga Grebenkova</a><sup>*</sup>, </span>
-          <span><a href="https://ommer-lab.com/people/ommer/">Björn Ommer</a></span>
-        </p>
-        <p class="is-size-5">CompVis @ LMU Munich • Munich Center for Machine Learning (MCML)</p>
-        <p class="is-size-5"><sup>*</sup>Equal contribution</p>
-
-        <div class="buttons is-centered mt-4">
-          <!-- Paper Button -->
-          <a href="###PDF###" class="button is-dark is-rounded">
-            <span class="icon"><i class="fas fa-file-pdf"></i></span>
-            <span>Paper</span>
-          </a>
-          
-          <!-- Code Button -->
-          <a href="https://github.com/CompVis/EDGS" class="button is-dark is-rounded">
-            <span class="icon"><i class="fab fa-github"></i></span>
-            <span>Code</span>
-          </a>
-          
-          <!-- Demo Button -->
-          <a href="https://huggingface.co/spaces/CompVis/EDGS" class="button is-dark is-rounded">
-            <span class="icon"><i class="fas fa-play"></i></span> <!-- Using FA icon as fallback -->
-            <span>Demo</span>
-          </a>
-          
-          <!-- Colab Button (Styled to match) -->
-          <a href="https://colab.research.google.com/github/your-username/your-repository/" class="button is-dark is-rounded">
-            <span class="icon"><i class="fab fa-google"></i></span>
-            <span>Colab</span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="parent-video-compare-container" id="trainb">
-    <div class="video-compare-container" id="materialsDiv">
-      <video
-        class="video"
-        id="materials"
-        loop
-        playsinline
-        autoplay
-        muted
-        src="./static/videos/teaser.mp4"
-        onplay="resizeAndPlay(this)"
-      ></video>
-      <canvas height="0" class="videoMerge" id="materialsMerge"></canvas>
-    </div>
-    <br>
-    <p> Novel view reconstructions comparing <strong>(right) EDGS</strong> with <strong>(left) standard 3DGS</strong>. </p>
-    <p>Our method achieves higher fidelity in complex areas (e.g., detailed textures and 
-      geometric structures) while converging 10× faster.</p>
-    <p><strong>EDGS</strong> replaces the incremental refinement process to speed up convergence — enabling high-quality and fast 3D reconstruction.</p>
-  </div>
-
-  <script>
-    function isSafari() {
-      return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    }
-    if (isSafari()) {
-      document.getElementById('trainb').innerHTML =
-        `<video class="safari-video" controls autoplay>
-          <source src="./static/videos/teaser.mp4" type="video/mp4" >
-        </video>`;
-    }
-  </script>
-
- <div class="parent-video-compare-container">
-  <hr />
-</div>
- 
-
-
-  
-  <!-- Abstract -->
-  <section class="section hero is-light">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-3">Abstract</h2>
-          <div class="content has-text-justified">
-            <p>
-              3D Gaussian Splatting reconstructs scenes by starting from a sparse Structure-from-Motion initialization and iteratively refining under-reconstructed regions. This process is inherently slow, as it requires multiple densification steps where Gaussians are repeatedly split and adjusted, following a lengthy optimization path. Moreover, this incremental approach often leads to suboptimal renderings, particularly in high-frequency regions where detail is critical.
-            </p>
-            <p>
-              We propose a fundamentally different approach: we eliminate densification process with a one-step approximation of scene geometry using triangulated pixels from dense image correspondences. This dense initialization allows us to estimate rough geometry of the scene while preserving rich details from input RGB images, providing each Gaussian with well-informed colors, scales, and positions. As a result, we dramatically shorten the optimization path and remove the need for densification. Unlike traditional methods that rely on sparse keypoints, our dense initialization ensures uniform detail across the scene, even in high-frequency regions where 3DGS and other methods struggle. Moreover, since all splats are initialized in parallel at the start of optimization, we eliminate the need to wait for densification to adjust new Gaussians.
-            </p>
-            <p>
-              <strong>EDGS</strong> not only outperforms speed-optimized models in training efficiency but also achieves higher rendering quality than state-of-the-art approaches, all while using only half the splats of standard 3DGS. It is fully compatible with other 3DGS acceleration techniques, making it a versatile and efficient solution that can be integrated with existing approaches. 
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container is-max-desktop">
-      <!-- Title -->
-      <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-      <h2 class="title is-3 has-text-centered mb-5">How It Works</h2>
+    </nav>
       
-      <!-- Description Text -->
-      <div class="content has-text-justified">
-        <p>
-          With densification, individual Gaussians undergo multiple refinements before reaching their final states. 
-          <strong>EDGS</strong> provides an initialization that is <i>already close to the final state</i>. Rather than waiting for the model to gradually fill in missing details, we precompute a dense set of 3D Gaussians by triangulating dense 2D correspondences across multiple input views. Knowing the viewing rays for each correspondence pixel and the camera poses—but not the depth along those rays—we recover 3D positions by triangulating matched pixels between image pairs. This allows us to assign each Gaussian well-informed initial properties like position, color, and scale from the start.
-          Our method significantly reduces the final coordinate displacement, as Gaussians are initialized closer to surfaces, requiring fewer adjustments.
-          Compared to 3DGS, our model reduces the final coordinate travel distance by 50 times, and the total path length in coordinates is 30 times shorter.
-          The color path length also decreases, though less dramatically, by approximately a factor of two, as small oscillations remain along the trajectory. 
-        </p>
-      </div>
-  
-      <!-- Image Grid -->
-      <div class="columns is-centered is-vcentered">
-        <!-- Image 1 -->
-        <div class="column is-half">
-          <figure class="image" style="max-width: 500px; margin: 0 auto;">
-            <img src="static/images/Absolute.png" alt="Absolute distance between initialization and final state" style="width: 100%; height: auto;">
-          </figure>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container is-max-desktop has-text-centered">
+          <h1 class="title is-1">EDGS: Eliminating Densification for Efficient Convergence of 3DGS</h1>
+          <p class="is-size-5">
+            <span><a href="https://www.linkedin.com/in/dmitry-kotovenko-dl/">Dmytro Kotovenko</a><sup>*</sup>, </span>
+            <span><a href="https://www.linkedin.com/in/grebenkovao/">Olga Grebenkova</a><sup>*</sup>, </span>
+            <span><a href="https://ommer-lab.com/people/ommer/">Björn Ommer</a></span>
+          </p>
+          <p class="is-size-5">CompVis @ LMU Munich • Munich Center for Machine Learning (MCML)</p>
+          <p class="is-size-5"><sup>*</sup>Equal contribution</p>
+
+          <div class="buttons is-centered mt-4">
+            <!-- Paper Button -->
+            <a href="###PDF###" class="button is-dark is-rounded">
+              <span class="icon"><i class="fas fa-file-pdf"></i></span>
+              <span>Paper</span>
+            </a>
+            
+            <!-- Code Button -->
+            <a href="https://github.com/CompVis/EDGS" class="button is-dark is-rounded">
+              <span class="icon"><i class="fab fa-github"></i></span>
+              <span>Code</span>
+            </a>
+            
+            <!-- Demo Button -->
+            <a href="https://huggingface.co/spaces/CompVis/EDGS" class="button is-dark is-rounded">
+              <span class="icon"><i class="fas fa-play"></i></span> <!-- Using FA icon as fallback -->
+              <span>Demo</span>
+            </a>
+            
+            <!-- Colab Button (Styled to match) -->
+            <a href="https://colab.research.google.com/github/your-username/your-repository/" class="button is-dark is-rounded">
+              <span class="icon"><i class="fab fa-google"></i></span>
+              <span>Colab</span>
+            </a>
+          </div>
         </div>
-        
-        <!-- Image 2 -->
-        <div class="column is-half">
-          <figure class="image" style="max-width: 500px; margin: 0 auto;">
-            <img src="static/images/Aggregated_distance.png" alt="Aggregated distance through optimization" style="width: 100%; height: auto;">
-          </figure>
-        </div>
       </div>
+    </section>
+
+    <div class="parent-video-compare-container" id="trainb">
+      <div class="video-compare-container" id="materialsDiv">
+        <video
+          class="video"
+          id="materials"
+          loop
+          playsinline
+          autoplay
+          muted
+          src="./static/videos/teaser.mp4"
+          onplay="resizeAndPlay(this)"
+        ></video>
+        <canvas height="0" class="videoMerge" id="materialsMerge"></canvas>
+      </div>
+      <br>
+      <p> Novel view reconstructions comparing <strong>(right) EDGS</strong> with <strong>(left) standard 3DGS</strong>. </p>
+      <p>Our method achieves higher fidelity in complex areas (e.g., detailed textures and 
+        geometric structures) while converging 10× faster.</p>
+      <p><strong>EDGS</strong> replaces the incremental refinement process to speed up convergence — enabling high-quality and fast 3D reconstruction.</p>
     </div>
-     </div>
+
+    <script>
+      function isSafari() {
+        return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+      }
+      if (isSafari()) {
+        document.getElementById('trainb').innerHTML =
+          `<video class="safari-video" controls autoplay>
+            <source src="./static/videos/teaser.mp4" type="video/mp4" >
+          </video>`;
+      }
+    </script>
+
+   <div class="parent-video-compare-container">
+    <hr />
   </div>
-  </section>
+   
 
 
-  <!-- Dataset Results Section -->
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container is-centered has-text-centered">
-      <h2 class="title is-3">EDGS is robust across various settings and datasets</h2>
+    
+    <!-- Abstract -->
+    <section class="section hero is-light">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">Abstract</h2>
+            <div class="content has-text-justified">
+              <p>
+                3D Gaussian Splatting reconstructs scenes by starting from a sparse Structure-from-Motion initialization and iteratively refining under-reconstructed regions. This process is inherently slow, as it requires multiple densification steps where Gaussians are repeatedly split and adjusted, following a lengthy optimization path. Moreover, this incremental approach often leads to suboptimal renderings, particularly in high-frequency regions where detail is critical.
+              </p>
+              <p>
+                We propose a fundamentally different approach: we eliminate densification process with a one-step approximation of scene geometry using triangulated pixels from dense image correspondences. This dense initialization allows us to estimate rough geometry of the scene while preserving rich details from input RGB images, providing each Gaussian with well-informed colors, scales, and positions. As a result, we dramatically shorten the optimization path and remove the need for densification. Unlike traditional methods that rely on sparse keypoints, our dense initialization ensures uniform detail across the scene, even in high-frequency regions where 3DGS and other methods struggle. Moreover, since all splats are initialized in parallel at the start of optimization, we eliminate the need to wait for densification to adjust new Gaussians.
+              </p>
+              <p>
+                <strong>EDGS</strong> not only outperforms speed-optimized models in training efficiency but also achieves higher rendering quality than state-of-the-art approaches, all while using only half the splats of standard 3DGS. It is fully compatible with other 3DGS acceleration techniques, making it a versatile and efficient solution that can be integrated with existing approaches. 
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-       <!-- Real Data Section -->
-       <h3 class="title is-5 has-text-weight-normal mt-5">Real data. Try out on your video in our demo for front facing scenes!</h3>
-       <div class="carousel results-carousel">
-         <div class="item"><video autoplay muted loop controls><source src="./static/videos/tram.mp4" type="video/mp4"></video></div>
-         <div class="item"><video autoplay muted loop controls><source src="./static/videos/tram.mp4" type="video/mp4"></video></div>
-         <div class="item"><video autoplay muted loop controls><source src="./static/videos/tram.mp4" type="video/mp4"></video></div>
-         <div class="item"><video autoplay muted loop controls><source src="./static/videos/tram.mp4" type="video/mp4"></video></div>
+    <section class="section">
+      <div class="container is-max-desktop">
+        <!-- Title -->
+        <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+        <h2 class="title is-3 has-text-centered mb-5">How It Works</h2>
+        
+        <!-- Description Text -->
+        <div class="content has-text-justified">
+          <p>
+            With densification, individual Gaussians undergo multiple refinements before reaching their final states. 
+            <strong>EDGS</strong> provides an initialization that is <i>already close to the final state</i>. Rather than waiting for the model to gradually fill in missing details, we precompute a dense set of 3D Gaussians by triangulating dense 2D correspondences across multiple input views. Knowing the viewing rays for each correspondence pixel and the camera poses—but not the depth along those rays—we recover 3D positions by triangulating matched pixels between image pairs. This allows us to assign each Gaussian well-informed initial properties like position, color, and scale from the start.
+            Our method significantly reduces the final coordinate displacement, as Gaussians are initialized closer to surfaces, requiring fewer adjustments.
+            Compared to 3DGS, our model reduces the final coordinate travel distance by 50 times, and the total path length in coordinates is 30 times shorter.
+            The color path length also decreases, though less dramatically, by approximately a factor of two, as small oscillations remain along the trajectory. 
+          </p>
+        </div>
+    
+        <!-- Image Grid -->
+        <div class="columns is-centered is-vcentered">
+          <!-- Image 1 -->
+          <div class="column is-half">
+            <figure class="image" style="max-width: 500px; margin: 0 auto;">
+              <img src="static/images/Absolute.png" alt="Absolute distance between initialization and final state" style="width: 100%; height: auto;">
+            </figure>
+          </div>
+          
+          <!-- Image 2 -->
+          <div class="column is-half">
+            <figure class="image" style="max-width: 500px; margin: 0 auto;">
+              <img src="static/images/Aggregated_distance.png" alt="Aggregated distance through optimization" style="width: 100%; height: auto;">
+            </figure>
+          </div>
+        </div>
+      </div>
+       </div>
+    </div>
+    </section>
+
+
+    <!-- Dataset Results Section -->
+  <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container is-centered has-text-centered">
+        <h2 class="title is-3">EDGS is robust across various settings and datasets</h2>
+
+         <!-- Real Data Section -->
+         <h3 class="title is-5 has-text-weight-normal mt-5">Real data. Try out on your video in our demo for front facing scenes!</h3>
+         <div class="carousel results-carousel">
+           <div class="item"><video autoplay muted loop controls><source src="./static/videos/tram.mp4" type="video/mp4"></video></div>
+           <div class="item"><video autoplay muted loop controls><source src="./static/videos/tram.mp4" type="video/mp4"></video></div>
+           <div class="item"><video autoplay muted loop controls><source src="./static/videos/tram.mp4" type="video/mp4"></video></div>
+           <div class="item"><video autoplay muted loop controls><source src="./static/videos/tram.mp4" type="video/mp4"></video></div>
+         </div>
          <div class="item"><video autoplay muted loop controls><source src="./static/videos/tram.mp4" type="video/mp4"></video></div>
        </div>
       
