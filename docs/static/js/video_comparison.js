@@ -36,18 +36,19 @@ function playVids(videoId) {
             var colStart = (vidWidth * position).clamp(0.0, vidWidth);
             var colWidth = (vidWidth * position).clamp(0.0, vidWidth);
         
-            // Draw LEFT side first (instead of right side)
+            // Draw left side fully (base layer)
             mergeContext.drawImage(vid,
-                0, 0, vidWidth, vidHeight,
-                0, 0, vidWidth, vidHeight
+                0, 0, vidWidth, vidHeight,         // left half of video
+                0, 0, vidWidth, vidHeight          // draw to left half of canvas
             );
-        
-            // Then overlay the RIGHT side on the right portion only
+
+            // Draw reveal part from the right half
+            var colStart = (vidWidth * position).clamp(0.0, vidWidth);
+            var colWidth = (vidWidth - colStart).clamp(0.0, vidWidth);
             mergeContext.drawImage(vid,
-                vidWidth, 0, colWidth, vidHeight,
-                vidWidth, 0, colWidth, vidHeight
+                vidWidth + colStart, 0, colWidth, vidHeight, // from right half of video
+                colStart, 0, colWidth, vidHeight             // draw it over on the canvas
             );
-        
             requestAnimationFrame(drawLoop);
             
             var arrowLength = 0.09 * vidHeight;
@@ -106,7 +107,7 @@ function playVids(videoId) {
             // Draw text overlay for our method
             mergeContext.font = "40px Arial";
             mergeContext.fillStyle = "white";
-            mergeContext.fillText("Our Method", vidWidth + 10, 50);
+            mergeContext.fillText("Our Method", vidWidth - 200, 50);
             mergeContext.fillText("3DGS", 10, 50);           
             // mergeContext.fillText("Gaussian", 10, 100);           
             // mergeContext.fillText("Splatting", 10, 150);           
