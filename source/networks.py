@@ -9,7 +9,8 @@ from gaussian_renderer import render
 from source.data_utils import scene_cameras_train_test_split
 
 class Warper3DGS(torch.nn.Module):
-    def __init__(self, sh_degree,  opt, pipe, dataset, viewpoint_stack, verbose):
+    def __init__(self, sh_degree,  opt, pipe, dataset, viewpoint_stack, verbose,
+                 do_train_test_split=True):
         super(Warper3DGS, self).__init__()
         """
         Init Warper using all the objects necessary for rendering gaussian splats.
@@ -23,7 +24,9 @@ class Warper3DGS(torch.nn.Module):
         self.bg = torch.tensor(bg_color, dtype=torch.float32, device="cuda")
         self.pipe = pipe
         self.scene = Scene(dataset, self.gaussians, shuffle=False)
-        scene_cameras_train_test_split(self.scene, verbose=verbose)
+        if do_train_test_split:
+            scene_cameras_train_test_split(self.scene, verbose=verbose)
+
         self.gaussians.training_setup(opt)
         self.viewpoint_stack = viewpoint_stack
         if not self.viewpoint_stack:

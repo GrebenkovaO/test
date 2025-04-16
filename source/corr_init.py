@@ -514,7 +514,7 @@ def select_best_keypoints(
 
 
 
-def init_gaussians_with_corr(gaussians, scene, cfg, device, verbose = False):
+def init_gaussians_with_corr(gaussians, scene, cfg, device, verbose = False, roma_model=None):
     """
     For a given input gaussians and a scene we instantiate a RoMa model(change to indoors if necessary) and process scene
     training frames to extract correspondences. Those are used to initialize gaussians
@@ -526,12 +526,13 @@ def init_gaussians_with_corr(gaussians, scene, cfg, device, verbose = False):
         gaussians: inplace transforms object gaussians of the class GaussianModel.
 
     """
-    if cfg.roma_model == "indoors":
-        roma_model = roma_indoor(device=device)
-    else:
-        roma_model = roma_outdoor(device=device)
-    roma_model.upsample_preds = False
-    roma_model.symmetric = False
+    if roma_model is None:
+        if cfg.roma_model == "indoors":
+            roma_model = roma_indoor(device=device)
+        else:
+            roma_model = roma_outdoor(device=device)
+        roma_model.upsample_preds = False
+        roma_model.symmetric = False
     M = cfg.matches_per_ref
     upper_thresh = roma_model.sample_thresh
     scaling_factor = cfg.scaling_factor
@@ -661,7 +662,8 @@ def init_gaussians_with_corr(gaussians, scene, cfg, device, verbose = False):
 
             dist_points_to_cam1 = torch.linalg.norm(viewpoint_cam1.camera_center.clone().detach() - new_xyz,
                                                     dim=1, ord=2)
-            all_new_scaling.append(torch.log(((dist_points_to_cam1) / 1. * scaling_factor).unsqueeze(1).repeat(1, 3)))
+            #all_new_scaling.append(torch.log(((dist_points_to_cam1) / 1. * scaling_factor).unsqueeze(1).repeat(1, 3)))
+            all_new_scaling.append(gaussians.scaling_inverse_activation((dist_points_to_cam1 * scaling_factor).unsqueeze(1).repeat(1, 3)))
             all_new_rotation.append(torch.stack([gaussians._rotation[-1].clone().detach()] * N, dim=0))
 
     all_new_xyz = torch.cat(all_new_xyz, dim=0) 

@@ -18,7 +18,8 @@ custom_theme = Theme({
     "danger": "bold red"
 })
 
-from source.corr_init import init_gaussians_with_corr
+#from source.corr_init import init_gaussians_with_corr
+from source.corr_init_new import init_gaussians_with_corr_profiled as init_gaussians_with_corr
 from source.utils_aux import log_samples
 
 from source.timer import Timer
@@ -28,7 +29,8 @@ class EDGSTrainer:
                  GS: Warper3DGS,
                  training_config,
                  dataset_white_background=False,
-                 device=torch.device('cuda')
+                 device=torch.device('cuda'),
+                 log_wandb=True,
                  ):
         self.GS = GS
         self.scene = GS.scene
@@ -43,7 +45,7 @@ class EDGSTrainer:
         self.gs_step = 0
         self.CONSOLE = Console(width=120, theme=custom_theme)
         self.saving_iterations = training_config.save_iterations
-        self.evaluate_itarations = None
+        self.evaluate_iterations = None
         self.batch_size = training_config.batch_size
         self.ema_loss_for_log = 0.0
 
@@ -52,6 +54,7 @@ class EDGSTrainer:
         self.lpips = lpips.LPIPS(net='vgg').to(device)
         self.device = device
         self.timer = Timer()
+        self.log_wandb = log_wandb
 
     def load_checkpoints(self, load_cfg):
         # Load 3DGS checkpoint
@@ -88,7 +91,7 @@ class EDGSTrainer:
                     # Log and save
                     if self.training_step in self.saving_iterations:
                         self.save_model()
-                    if self.evaluate_itarations is not None:
+                    if self.evaluate_iterations is not None:
                         if self.training_step in self.evaluate_iterations:
                             self.evaluate()
                     else:
@@ -106,7 +109,8 @@ class EDGSTrainer:
                               {'name': 'train',
                                'cameras': [self.scene.getTrainCameras()[idx % len(self.scene.getTrainCameras())] for idx in
                                            range(0, 150, 5)], 'cam_idx': 10})
-        wandb.log({f"Number of Gaussians": len(self.GS.gaussians._xyz)}, step=self.training_step)
+        if self.log_wandb:
+            wandb.log({f"Number of Gaussians": len(self.GS.gaussians._xyz)}, step=self.training_step)
         for config in validation_configs:
             if config['cameras'] and len(config['cameras']) > 0:
                 l1_test = 0.0
@@ -127,13 +131,15 @@ class EDGSTrainer:
                 l1_test /= len(config['cameras'])
                 ssim_test /= len(config['cameras'])
                 lpips_splat_test /= len(config['cameras'])
-                wandb.log({f"{config['name']}/L1": l1_test.item(), f"{config['name']}/PSNR": psnr_test.item(), \
-                         f"{config['name']}/SSIM": ssim_test.item(), f"{config['name']}/LPIPS_splat": lpips_splat_test.item()}, step = self.training_step)
+                if self.log_wandb:
+                    wandb.log({f"{config['name']}/L1": l1_test.item(), f"{config['name']}/PSNR": psnr_test.item(), \
+                            f"{config['name']}/SSIM": ssim_test.item(), f"{config['name']}/LPIPS_splat": lpips_splat_test.item()}, step = self.training_step)
                 self.CONSOLE.print("\n[ITER {}], #{} gaussians, Evaluating {}: L1={:.6f},  PSNR={:.6f}, SSIM={:.6f}, LPIPS_splat={:.6f} ".format(
                     self.training_step, len(self.GS.gaussians._xyz), config['name'], l1_test.item(), psnr_test.item(), ssim_test.item(), lpips_splat_test.item()), style="info")
-        with torch.no_grad():
-            log_samples(torch.stack((log_real_images[0],log_gen_images[0])) , [], self.training_step, caption="Real and Generated Samples")
-            wandb.log({"time": self.timer.get_elapsed_time()}, step=self.training_step)
+        if self.log_wandb:
+            with torch.no_grad():
+                log_samples(torch.stack((log_real_images[0],log_gen_images[0])) , [], self.training_step, caption="Real and Generated Samples")
+                wandb.log({"time": self.timer.get_elapsed_time()}, step=self.training_step)
         torch.cuda.empty_cache()
 
     def train_step_gs(self, max_lr = False, no_densify = False):
@@ -165,8 +171,9 @@ class EDGSTrainer:
                                                 "L1_loss": L1_loss.item(),
                                                 "ssim_loss": ssim_loss.item()}
         
-        for k, v in self.logs_losses[self.training_step].items():
-            wandb.log({f"train/{k}": v}, step=self.training_step)
+        if self.log_wandb:
+            for k, v in self.logs_losses[self.training_step].items():
+                wandb.log({f"train/{k}": v}, step=self.training_step)
         self.ema_loss_for_log = 0.4 * self.logs_losses[self.training_step]["loss"] + 0.6 * self.ema_loss_for_log
         self.timer.start()
         self.GS_optimizer.zero_grad(set_to_none=True)
@@ -208,12 +215,14 @@ class EDGSTrainer:
                 self.scene.model_path + "/chkpnt" + str(self.gs_step) + ".pth")
 
 
-    def init_with_corr(self, cfg, verbose=False): 
+    def init_with_corr(self, cfg, verbose=False, roma_model=None): 
         """
         Initializes image with matchings. Also removes SfM init points.
         Args:
             cfg: configuration part named init_wC. Check train.yaml
             verbose: whether you want to print intermediate results. Useful for debug.
+            roma_model: optionally you can pass here preinit RoMA model to avoid reinit 
+                it every time.  
         """
         if not cfg.use:
             return None
@@ -224,7 +233,8 @@ class EDGSTrainer:
             self.scene, 
             cfg, 
             self.device,                                                                                    
-            verbose=verbose)
+            verbose=verbose,
+            roma_model=roma_model)
 
         # Remove SfM points and leave only matchings inits
         if not cfg.add_SfM_init:
