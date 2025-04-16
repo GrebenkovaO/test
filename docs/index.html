@@ -29,21 +29,21 @@
   <link rel="stylesheet" href="./static/css/bulma.min.css">
   <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
   <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
-  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
   <link rel="icon" href="./static/images/compvis_logo.png">
   <link rel="stylesheet" href="./static/css/slide.css" />
   <link rel="stylesheet" href="./static/css/dics.original.css" />
+
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script defer src="./static/js/fontawesome.all.min.js"></script>
-  <script src="./static/js/dics.original.js"></script>
-  <script src="./static/js/bulma-carousel.min.js"></script>
-  <script src="./static/js/bulma-carousel.js"></script>
-  <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/video_comparison.js"></script>
+  <script src="./static/js/dics.original.js"></script>
+  <script src="./static/js/bulma-carousel.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
-  
+
   <style>
     .larger-arrow {
       font-size: 2em; /* Adjust the font size as needed */
@@ -111,7 +111,7 @@
             </a>
             
             <!-- Colab Button (Styled to match) -->
-            <a href="https://colab.research.google.com/github/your-username/your-repository/" class="button is-dark is-rounded">
+            <a href="https://colab.research.google.com/github/CompVis/EDGS/blob/main/notebooks/fit_model_to_scene_full.ipynb" class="button is-dark is-rounded">
               <span class="icon"><i class="fab fa-google"></i></span>
               <span>Colab</span>
             </a>
@@ -185,44 +185,47 @@
     <!-- Dataset Results Section -->
   <section class="hero is-small">
     <div class="hero-body">
+
       <div class="container is-centered has-text-centered">
         <h2 class="title is-3">EDGS is robust across various settings and datasets</h2>
           <!-- Real Data Section -->
           <h3 class="title is-5 has-text-weight-normal mt-5">Front Facing scenes. Try out on your video in our demo for it!</h3>
-          <div class="carousel results-carousel" id="real">
-            <div class="item"><video autoplay muted loop controls><source src="./static/videos/bowl.mp4" type="video/mp4"></video></div>
-            <div class="item"><video autoplay muted loop controls><source src="./static/videos/Dima.mp4" type="video/mp4"></video></div>
-            <div class="item"><video autoplay muted loop controls><source src="./static/videos/tram.mp4" type="video/mp4"></video></div>
-          </div>
+        
+        <div class="carousel results-carousel" data-slides="1">
+          <div class="item"><video autoplay muted loop controls><source src="./static/videos/bread.mp4" type="video/mp4"></video></div>
+          <div class="item"><video autoplay muted loop controls><source src="./static/videos/Olga.mp4" type="video/mp4"></video></div>
+          <div class="item"><video autoplay muted loop controls><source src="./static/videos/Tulpen.mp4" type="video/mp4"></video></div>
+        </div>
 
-          <div class="carousel results-carousel" id="real2">
-            <div class="item"><video autoplay muted loop controls><source src="./static/videos/tram.mp4" type="video/mp4"></video></div>
-            <div class="item"><video autoplay muted loop controls><source src="./static/videos/Olga.mp4" type="video/mp4"></video></div>
-            <div class="item"><video autoplay muted loop controls><source src="./static/videos/bread.mp4" type="video/mp4"></video></div>
-            <div class="item"><video autoplay muted loop controls><source src="./static/videos/Tulpen.mp4" type="video/mp4"></video></div>
-            <div class="item"><video autoplay muted loop controls><source src="static/videos/bonsai_front.mp4" type="video/mp4"></video></div>
-            <div class="item"><video autoplay muted loop controls><source src="static/videos/stump_front.mp4" type="video/mp4"></video></div>
-            <div class="item"><video autoplay muted loop controls><source src="static/videos/room_front.mp4" type="video/mp4"></video></div>
-          </div>
-    
+        <div class="carousel results-carousel" data-slides="2">
+          <div class="item"><video autoplay muted loop controls><source src="./static/videos/bowl.mp4" type="video/mp4"></video></div>
+          <div class="item"><video autoplay muted loop controls><source src="./static/videos/tram.mp4" type="video/mp4"></video></div>
+          <div class="item"><video autoplay muted loop controls><source src="./static/videos/Dima.mp4" type="video/mp4"></video></div>
+        </div>
+
+        <div class="carousel results-carousel"  data-slides="2">
+          <div class="item"><video autoplay muted loop controls><source src="./static/videos/bonsai_front.mp4" type="video/mp4"></video></div>
+          <div class="item"><video autoplay muted loop controls><source src="./static/videos/stump_front.mp4" type="video/mp4"></video></div>
+          <div class="item"><video autoplay muted loop controls><source src="./static/videos/room_front.mp4" type="video/mp4"></video></div>
+        </div>
+
         <!-- NeRF Synthetic Section -->
-        <h3 class="title is-5 has-text-weight-normal mt-5">NeRF Synthetic</h3>
-        <div class="carousel results-carousel" id="nerf">
+        <h3 class="title is-5 has-text-weight-normal mt-5">360 scenes</h3>
+        <div class="carousel results-carousel"  data-slides="3">
           <div class="item"><video autoplay muted loop controls><source src="./static/videos/lego.mp4" type="video/mp4"></video></div>
           <div class="item"><video autoplay muted loop controls><source src="./static/videos/drums.mp4" type="video/mp4"></video></div>
           <div class="item"><video autoplay muted loop controls><source src="./static/videos/ship.mp4" type="video/mp4"></video></div>
           <div class="item"><video autoplay muted loop controls><source src="./static/videos/micro.mp4" type="video/mp4"></video></div>
         </div>
-
+    
         <!-- Mip-NeRF Section -->
-        <h3 class="title is-5 has-text-weight-normal mt-5">Mip-NeRF and Tank&temples on dense frames setting</h3>
-        <div class="carousel results-carousel" id="mip">
-          <div class="item"><video autoplay muted loop controls><source src="static/videos/bonsai_full.mp4" type="video/mp4"></video></div>
-          <div class="item"><video autoplay muted loop controls><source src="static/videos/treehill.mp4" type="video/mp4"></video></div>
-          <div class="item"><video autoplay muted loop controls><source src="static/videos/truck_full.mp4" type="video/mp4"></video></div>
-          
+        <div class="carousel results-carousel" data-slides="2">
+          <div class="item"><video autoplay muted loop controls><source src="./static/videos/bonsai_full.mp4" type="video/mp4"></video></div>
+          <div class="item"><video autoplay muted loop controls><source src="./static/videos/treehill.mp4" type="video/mp4"></video></div>
+          <div class="item"><video autoplay muted loop controls><source src="./static/videos/truck_full.mp4" type="video/mp4"></video></div>
         </div>
       </div>
+
     </div>
   </section> 
 

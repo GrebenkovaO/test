@@ -43,6 +43,28 @@ $(document).ready(function() {
 			autoplaySpeed: 3000,
     }
 
+      // Loop through each carousel and attach with custom settings
+    $('.carousel').each(function () {
+      const $carousel = $(this);
+      //const itemCount = $carousel.find('.item').length;
+
+      // Get manual settings from HTML attributes (fallback to defaults)
+      const slidesToShow = parseInt($carousel.data('slides')) || 3;
+      const autoplay = $carousel.data('autoplay') === true || $carousel.data('autoplay') === "false";
+      const autoplaySpeed = parseInt($carousel.data('speed')) || 3000;
+
+      const options = {
+        slidesToScroll: 1,
+        slidesToShow: slidesToShow,
+        loop: true,
+        infinite: true,
+        autoplay: autoplay,
+        autoplaySpeed: autoplaySpeed
+      };
+
+      bulmaCarousel.attach(this, options);
+    });
+
 		// Initialize all div with carousel class
     var carousels = bulmaCarousel.attach('.carousel', options);
 
@@ -62,7 +84,6 @@ $(document).ready(function() {
     		console.log(state);
     	});
     }
-
     /*var player = document.getElementById('interpolation-video');
     player.addEventListener('loadedmetadata', function() {
       $('#interpolation-slider').on('input', function(event) {
@@ -70,13 +91,7 @@ $(document).ready(function() {
         player.currentTime = player.duration / 100 * this.value;
       })
     }, false) ;*/
-    preloadInterpolationImages();
 
-    $('#interpolation-slider').on('input', function(event) {
-      setInterpolationImage(this.value);
-    });
-    setInterpolationImage(0);
-    $('#interpolation-slider').prop('max', NUM_INTERP_FRAMES - 1);
 
     bulmaSlider.attach();
 

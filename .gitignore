@@ -1,6 +1,7 @@
 # Local notebooks used for local debug
 notebooks_local/
 wandb/
+flowers/
 
 # hidden folders 
 .*/**
