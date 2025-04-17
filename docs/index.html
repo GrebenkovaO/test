@@ -136,7 +136,7 @@
       </div>
       <br>
       <div class="video-caption"> Novel view reconstructions comparing <strong>(right) EDGS</strong> with <strong>(left) standard 3DGS</strong>.  Our method achieves higher fidelity in complex areas (e.g., detailed textures and 
-        geometric structures) while converging 10× faster.<strong>EDGS</strong> replaces the incremental refinement process to speed up convergence — enabling high-quality and fast 3D reconstruction.</div>
+        geometric structures) while converging 10× faster. <strong>EDGS</strong> replaces the incremental refinement process to speed up convergence — enabling high-quality and fast 3D reconstruction.</div>
     </div>
 
     <script>
@@ -267,6 +267,79 @@
      </div>
   </div>
   </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <!-- Title -->
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-full">
+            <h2 class="title is-3 mb-6">How Gaussians Move for 3DGS and Our Method</h2>
+          </div>
+        </div>
+  
+        <div class="parent-video-compare-container" id="trainb1">
+          <div class="video-compare-container" id="materials1Div">
+            <video
+              class="video"
+              id="materials1"
+              loop
+              playsinline
+              autoplay
+              muted
+              src="./static/videos/trail_flowers.mp4"
+              onplay="resizeAndPlay(this)"
+            ></video>
+            <canvas height="0" class="videoMerge" id="materials1Merge"></canvas>
+          </div>
+        <script>
+          function isSafari() {
+            return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+          }
+          if (isSafari()) {
+            document.getElementById('trainb1').innerHTML =
+              `<video class="safari-video" controls autoplay>
+                <source src="./static/videos/trail_flowers.mp4" type="video/mp4" >
+              </video>`;
+          }
+        </script>
+        </div>
+
+      <div class="container is-max-desktop">
+        <div class="parent-video-compare-container" id="trainb2">
+          <div class="video-compare-container" id="materials2Div">
+            <!-- Standard Video for non-Safari browsers -->
+            <video
+              class="video"
+              id="materials2"
+              loop
+              playsinline
+              autoplay
+              muted
+              src="./static/videos/trail_stump.mp4"
+              onplay="resizeAndPlay(this)"
+            ></video>
+            <canvas height="0" class="videoMerge" id="material2Merge"></canvas>
+          </div>
+        </div>
+        
+         <script>
+          function isSafari() {
+            return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+          }
+          if (isSafari()) {
+            document.getElementById('trainb2').innerHTML =
+              `<video class="safari-video" controls autoplay>
+                <source src="./static/videos/trail_stump.mp4" type="video/mp4" >
+              </video>`;
+          }
+        </script>
+    </div>
+  </section>
+  
+
+  
+  
+  
 
   <section class="section">
     <div class="container is-max-desktop">
