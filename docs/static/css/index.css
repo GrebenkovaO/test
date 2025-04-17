@@ -307,12 +307,13 @@ margin-right: 0; /* Remove margin for the last video container */
 
   .video-compare-container {
     position: relative;
-    width: 75%;
-    max-width: 75vw;
-    margin: 0 auto; /* Center horizontally */
-    padding-top: 42.1875%; /* This keeps a 16:9 aspect ratio of 75% width */
+    width: 100%;
+    max-width: 640px; /* reasonable max size on big screens */
+    margin: 0 auto;
+    aspect-ratio: 16 / 9; /* keeps correct ratio */
     overflow: hidden;
     background-color: #000;
+    border-radius: 12px;
   }
   
   .video-compare-container video,
@@ -341,7 +342,7 @@ margin-right: 0; /* Remove margin for the last video container */
   }
 
   .video-compare-container {
-    padding-top: 75%; /* Change aspect ratio for small devices if necessary */
+    padding-top: 60%; /* Change aspect ratio for small devices if necessary */
   }
 }
 

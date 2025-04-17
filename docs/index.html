@@ -302,8 +302,7 @@
               </video>`;
           }
         </script>
-        </div>
-
+    </div>  
       <div class="container is-max-desktop">
         <div class="parent-video-compare-container" id="trainb2">
           <div class="video-compare-container" id="materials2Div">
@@ -318,21 +317,9 @@
               src="./static/videos/trail_stump.mp4"
               onplay="resizeAndPlay(this)"
             ></video>
-            <canvas height="0" class="videoMerge" id="material2Merge"></canvas>
+            <canvas height="0" class="videoMerge" id="materials2Merge"></canvas>
           </div>
         </div>
-        
-         <script>
-          function isSafari() {
-            return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-          }
-          if (isSafari()) {
-            document.getElementById('trainb2').innerHTML =
-              `<video class="safari-video" controls autoplay>
-                <source src="./static/videos/trail_stump.mp4" type="video/mp4" >
-              </video>`;
-          }
-        </script>
     </div>
   </section>
   
