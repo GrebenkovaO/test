@@ -260,7 +260,7 @@ margin-right: 0; /* Remove margin for the last video container */
 
 /* Video caption styles */
 .video-caption {
-  width: 100%;
+  width: 75%;
   text-align: center;
   margin-top: 10px;
   font-size: 1rem;

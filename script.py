@@ -2,8 +2,8 @@ import cv2
 import numpy as np
 
 # Input video paths
-left_video_path = "/export/scratch/ra23mar/test/EDGS/docs/static/videos/stump_3DGS_trails.mp4"   # e.g., 3DGS
-right_video_path = "/export/scratch/ra23mar/test/EDGS/docs/static/videos/stump_3Ours_trails.mp4" # e.g., EDGS
+left_video_path = "/export/scratch/ra23mar/test/EDGS/docs/static/videos/lego_3d.mp4"   # e.g., 3DGS
+right_video_path = "/export/scratch/ra23mar/test/EDGS/docs/static/videos/lego.mp4" # e.g., EDGS
 
 # Load videos
 cap1 = cv2.VideoCapture(left_video_path)
@@ -35,12 +35,12 @@ while True:
     frame2 = cv2.resize(frame2, (width, height))
 
     # Add "3DGS" top-left of left video
-    cv2.putText(frame1, "3DGS", (30, 420), font, font_scale, color, thickness, cv2.LINE_AA)
+    cv2.putText(frame1, "3DGS", (30, 60), font, font_scale, color, thickness, cv2.LINE_AA)
 
     # Add "EDGS" top-right of right video
     text_size, _ = cv2.getTextSize("EDGS", font, font_scale, thickness)
     text_x = width - text_size[0] - 30
-    cv2.putText(frame2, "EDGS", (text_x, 420), font, font_scale, color, thickness, cv2.LINE_AA)
+    cv2.putText(frame2, "EDGS", (text_x, 60), font, font_scale, color, thickness, cv2.LINE_AA)
 
     # Combine horizontally
     combined = np.hstack((frame1, frame2))
